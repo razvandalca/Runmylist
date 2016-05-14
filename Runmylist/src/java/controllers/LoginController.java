@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
                 .append("?client_id=").append(clientID) // the client id from the api console registration
                 .append("&response_type=code")
                 .append("&scope=openid%20email") // scope is the api permissions we are requesting
-                .append("&redirect_uri=http://localhost:8080/CallBackController") // the servlet that google redirects to after authorization
+                .append("&redirect_uri=http://localhost:8080/Runmylist/LoginView.jsp") // the servlet that google redirects to after authorization
                 .append("&access_type=offline") // here we are asking to access to user's data while they are not signed in
                 .append("&approval_prompt=force"); // this requires them to verify which account to use, if they are already signed in
 

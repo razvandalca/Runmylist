@@ -8,6 +8,10 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controllers.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CallBackController</servlet-name>
+        <servlet-class>controllers.CallBackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -16,6 +20,11 @@
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CallBackController</servlet-name>
+        <url-pattern>/CallBackController</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
