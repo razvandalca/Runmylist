@@ -1,0 +1,551 @@
+html {
+    font-family: Roboto, sans-serif;
+    background-image: url(../../images/background-pattern.png);
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100%;
+    height: auto!important;
+    -webkit-transition: all .5s;
+    transition: all .5s
+}
+
+body {
+    margin: 0 0 80px
+}
+
+ul {
+    padding: 0;
+    margin: 0
+}
+
+.absolute {
+    position: absolute;
+    z-index: 3
+}
+
+.fixed {
+    position: fixed;
+    z-index: 3
+}
+
+.main-wrapper--margin-top {
+    margin-top: 115px
+}
+
+.clear {
+    clear: both
+}
+
+svg {
+    width: 50px;
+    height: 50px;
+    fill: #000
+}
+
+input,
+select,
+textarea {
+    -webkit-appearance: none
+}
+
+.cards-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 75px;
+    margin-bottom: 20px;
+    width: calc(100% - 380px);
+    margin: 0 auto;
+    float: left
+}
+
+.card-container {
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    margin: 10px;
+    margin-left: 20px;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    width: 255px;
+    height: 305px
+}
+
+.card-container:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05)
+}
+
+.card {
+    position: relative;
+    -webkit-transition: -webkit-transform 1s;
+    transition: -webkit-transform 1s;
+    transition: transform 1s;
+    transition: transform 1s, -webkit-transform 1s;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12)
+}
+
+.card,
+.card-front-side {
+    width: 255px;
+    height: 255px
+}
+
+.card-front-side {
+    z-index: 2;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg)
+}
+
+.card-front-side__thumbnail {
+    background-color: #fff;
+    height: 255px;
+    width: 255px
+}
+
+.card-back-side,
+.card-front-side__thumbnail img {
+    width: 255px;
+    height: 255px
+}
+
+.card-back-side {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg)
+}
+
+.card-back-side__thumbnail {
+    background-color: #fff;
+    height: 255px;
+    width: 255px
+}
+
+.card-back-side__thumbnail img {
+    width: 255px;
+    height: 255px
+}
+
+.card-info {
+    box-sizing: border-box;
+    background-color: #000;
+    border-bottom: 7px solid #2abaa4;
+    padding: 10px 20px;
+    width: 255px;
+    height: 50px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12)
+}
+
+.card-info__title {
+    color: #fff;
+    font-size: 16px;
+    margin-top: -7px;
+    width: 170px;
+    cursor: pointer
+}
+
+.card-info__song-count {
+    color: gray;
+    font-size: 13px;
+    cursor: pointer
+}
+
+.card-info__play-btn {
+    background-image: url(../../images/pl-play.png);
+    width: 20px;
+    height: 30px;
+    float: right;
+    margin-right: 2px;
+    margin-top: -4px;
+    cursor: pointer
+}
+
+.flip .card {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg)
+}
+
+footer {
+    background-color: #fff;
+    min-height: 45px;
+    margin-bottom: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .14)
+}
+
+.share-cont {
+    float: right
+}
+
+.share-cont__text {
+    display: inline
+}
+
+.login {
+    display: none;
+    background-color: #fff;
+    width: 212px;
+    height: 200px;
+    left: 50%;
+    top: 120px;
+    margin-left: -106px;
+    padding: 10px 27px
+}
+
+.login__intro-text {
+    margin: 5px 0;
+    margin-bottom: 9px;
+    paading: 2px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 400
+}
+
+.login__fb-btn {
+    background: #3b5998 url(https://static.canva.com/static/images/facebook_button.svg) no-repeat 50%;
+    background-position: 18px, 0;
+    width: 100%;
+    padding: 9px;
+    padding-left: 41px;
+    color: #fff;
+    font-size: 14px;
+    border: none
+}
+
+.login__fb-btn:hover {
+    box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3)
+}
+
+.login__seperator {
+    margin: 10px 0
+}
+
+.login-cont {
+    float: right;
+    font-size: 17px;
+    position: relative;
+    top: 5px
+}
+
+.login-cont__btn {
+    display: inline;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    transition: all .3s
+}
+
+.login-cont__btn:hover {
+    color: #2abaa4
+}
+
+.login-cont__seperator {
+    color: #2abaa4;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+.logo {
+    position: fixed;
+    z-index: 0;
+    top: 10px;
+    width: 100%;
+    left: 20px;
+    margin-top: 10px;
+    right: 0
+}
+
+.logo__image {
+    width: 200px;
+    height: auto;
+    position: relative;
+    top: -8px
+}
+
+.logo--shorten {
+    overflow: hidden;
+    height: 30px
+}
+
+.nav-bar-cont {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #fff;
+    height: 45px;
+    z-index: 1;
+    padding: 8px 20px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .14)
+}
+
+.nav-bar-cont--relative {
+    position: relative;
+    margin-top: 65px;
+    margin-bottom: 5px
+}
+
+.nav-bar-cont--fixed {
+    position: fixed;
+    top: 0
+}
+
+.nav-bar {
+    margin-top: -2px
+}
+
+.nav-bar__secondary-logo {
+    position: absolute;
+    top: 0;
+    left: -120px;
+    margin: 0 5px;
+    padding-top: 10px;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    overflow: hidden;
+    -webkit-transition: all .5s;
+    transition: all .5s
+}
+
+.nav-bar__secondary-logo--visible {
+    left: 10px
+}
+
+.nav-bar__secondary-logo img {
+    width: 100px;
+    height: 25px
+}
+
+.search-types {
+    display: inline;
+    font-size: 17px;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+    position: relative;
+    top: 2px
+}
+
+.search-types__search-type {
+    display: inline;
+    cursor: pointer;
+    font-size: 17px;
+    -webkit-transition: all .3s;
+    transition: all .3s
+}
+
+.search-types__search-type--active,
+.search-types__search-type:hover {
+    color: #2abaa4
+}
+
+.search-types__seperator {
+    color: #2abaa4;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+.search-form {
+    display: inline-block;
+    margin-left: 50px
+}
+
+.search-form,
+.search-form__search-input {
+    -webkit-transition: all .3s;
+    transition: all .3s
+}
+
+.search-form__search-input {
+    box-sizing: border-box;
+    width: 550px;
+    height: 30px;
+    background-color: #f9f9f9;
+    border: .8px solid #b9b9b9;
+    border-radius: 4px;
+    padding: 5px;
+    margin-left: 40px;
+    position: relative
+}
+
+.search-form__search-input--slide-sorten {
+    width: 480px
+}
+
+.search-form__search-input::-webkit-input-placeholder {
+    color: gray;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1
+}
+
+.search-form__search-input:focus {
+    outline: none
+}
+
+.search-form__button {
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    box-sizing: border-box;
+    width: 150px;
+    height: 30px;
+    background-color: transparent;
+    color: #2abaa4;
+    border: 1px solid #2abaa4;
+    border-radius: 4px;
+    padding: 5px;
+    position: relative;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 8px;
+    top: 1px
+}
+
+.search-form__button:hover {
+    color: #fff;
+    background-color: #2abaa4
+}
+
+.slided-left {
+    margin-left: 120px
+}
+
+.playlist {
+    float: right;
+    height: 400px;
+    width: 335px;
+    background-color: #fff;
+    margin-right: 40px;
+    margin-top: 10px
+}
+
+.player {
+    width: 100%;
+    max-height: 59px;
+    border-bottom: 8px solid #3fb9a4;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 12px 2px
+}
+
+.player__title {
+    -webkit-flex-basis: calc(100% - 119px);
+    -ms-flex-preferred-size: calc(100% - 119px);
+    flex-basis: calc(100% - 119px);
+    margin-left: 5px;
+    border-right: 1px solid #3fb9a4
+}
+
+.player__button {
+    margin-left: 12px;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none
+}
+
+.player__play-button {
+    background-image: url(../../images/play.png);
+    width: 11px;
+    height: 16px;
+    box-sizing: border-box
+}
+
+.player__prev-button {
+    background-image: url(../../images/prev.png);
+    width: 14px;
+    height: 16px
+}
+
+.player__next-button {
+    background-image: url(../../images/next.png);
+    width: 14px;
+    height: 16px
+}
+
+.player__repeat-button {
+    background-image: url(../../images/repeat.png);
+    width: 15px;
+    height: 16px
+}
+
+.playlist-items {
+    width: 100%;
+    height: calc(100% - 51px);
+    overflow: scroll
+}
+
+.playlist-item {
+    position: relative;
+    list-style: none;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: 1px solid #3fb9a4;
+    box-sizing: border-box;
+    height: 90px
+}
+
+.playlist-item__thumbnail {
+    width: 90px;
+    height: 90px;
+    background-color: gray;
+    float: left;
+    margin-right: 4px;
+    overflow: hidden
+}
+
+.playlist-item__thumbnail img {
+    height: 100%
+}
+
+.playlist-item__delete {
+    background-image: url(../../images/item-delete.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 38px;
+    right: 15px;
+    cursor: pointer
+}
+
+.playlist-item__title {
+    margin-top: 20px
+}
+
+.playlist-item__duration {
+    position: absolute;
+    display: inline-block;
+    right: 250px;
+    bottom: 2px;
+    background-color: rgba(0, 0, 0, .15);
+    color: hsla(0, 0%, 94%, .93);
+    font-size: 80%
+}
+
+
+/*# sourceMappingURL=master.min.css.map */
