@@ -4,7 +4,7 @@
 	<head>
 		<title>runmylist</title>
 		<meta charset="UTF-8">
-		<meta name="google-signin-client_id" content="99061022196-9lf3m0ph7t6nutj1monsjj17submqtqq.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script src="./scripts/components/googleplus.js"></script>
 		<script src="//connect.facebook.net/en_US/sdk.js"></script>
