@@ -48,11 +48,12 @@ public class LoginController extends HttpServlet {
                     String lname = request.getParameter("lastname").trim();
                     String email = request.getParameter("email").trim();
                     String googleid = request.getParameter("google_id").trim();
+                    String usernamegoogle = request.getParameter("username");
 
                     if (!userDAO.userExistsByGoogleID(googleid)) {
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         Calendar cal = Calendar.getInstance();
-                        userDAO.createUserFromGoogle("", "", dateFormat.format(cal.getTime()), fname, lname, email, googleid);
+                        userDAO.createUserFromGoogle(usernamegoogle, "", dateFormat.format(cal.getTime()), fname, lname, email, googleid);
                     }
                     out.print(1);
                     request.getSession().setAttribute("user_session", userDAO.getUserID(googleid));

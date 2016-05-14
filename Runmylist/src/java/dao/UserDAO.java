@@ -115,8 +115,8 @@ public class UserDAO {
        
         try {
             PreparedStatement stmt = connection.prepareStatement("insert into users values (default,?,?,?,?,?,?,?)");
-            stmt.setString(1, null);
-            stmt.setString(2, null);
+            stmt.setString(1, username);
+            stmt.setString(2, "");
             stmt.setString(3, creation_date);
             stmt.setString(4, fname);
             stmt.setString(5, lname);

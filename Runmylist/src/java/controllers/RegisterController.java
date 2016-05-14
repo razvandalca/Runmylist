@@ -40,7 +40,7 @@ public class RegisterController extends HttpServlet {
         RequestDispatcher rd;
         String error = "";
         boolean hasErrors = false;
-        String username = request.getParameter("username").trim();
+        String username = request.getParameter("username");
         String password = request.getParameter("password").trim();
         String email = request.getParameter("email").trim();
         String fname = request.getParameter("firstname").trim();
