@@ -7,6 +7,14 @@ package controllers;
 
 import dao.UserDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,26 +30,41 @@ public class LoginController extends HttpServlet {
     UserDAO userDAO = UserDAO.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        switch(request.getParameter("login_type")){
-            case "default":
-        String username = request.getParameter("uname");
-        String password = request.getParameter("password");
-        if (userDAO.isPasswordCorrect(username, password)) {
-            // user exists
-            out.print("ok");
-        } else {
-            String error = "User does not exist or password is incorrect";
-            request.setAttribute("LOGIN_ERROR", error);
-            RequestDispatcher rd = request.getRequestDispatcher("/LoginView.jsp");
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            switch (request.getParameter("login_type")) {
+                case "default":
+                    String username = request.getParameter("username").trim();
+                    String password = request.getParameter("password").trim();
+
+                    if (userDAO.isPasswordCorrect(username, password)) {
+                        // user exists
+                        out.print(1);
+                        request.getSession().setAttribute("user_session", userDAO.getUserID(username));
+                    } else {
+                        out.print(0);
+                    }
+                case "google":
+                    String fname = request.getParameter("firstname").trim();
+                    String lname = request.getParameter("lastname").trim();
+                    String email = request.getParameter("email").trim();
+                    String googleid = request.getParameter("google_id").trim();
+
+                    if (!userDAO.userExistsByGoogleID(googleid)) {
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar cal = Calendar.getInstance();
+                        userDAO.createUserFromGoogle("", "", dateFormat.format(cal.getTime()), fname, lname, email, googleid);
+                    }
+                    out.print(1);
+                    request.getSession().setAttribute("user_session", userDAO.getUserID(googleid));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-
-
 
 }

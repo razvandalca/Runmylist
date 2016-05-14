@@ -8,6 +8,9 @@ package controllers;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Razvan'S PC
  */
 public class RegisterController extends HttpServlet {
-       UserDAO userDao=UserDAO.getInstance();
+
+    UserDAO userDao = UserDAO.getInstance();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,22 +40,36 @@ public class RegisterController extends HttpServlet {
         RequestDispatcher rd;
         String error = "";
         boolean hasErrors = false;
-        String username = request.getParameter("uname");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
+        String username = request.getParameter("username").trim();
+        String password = request.getParameter("password").trim();
+        String email = request.getParameter("email").trim();
+        String fname = request.getParameter("firstname").trim();
+        String lname = request.getParameter("lastname").trim();
 
+        if (username.equals("") || username == null || password.equals("") || password == null || email.equals("") || email == null || fname.equals("") || fname == null || fname.equals("") || fname == null) {
+            hasErrors = true;
+            error = "Some fields are empty";
+        }
         if (userDao.userExists(username)) {
             hasErrors = true;
             error = "Username already exists";
         }
-        if (hasErrors) {
-            request.setAttribute("ERRORS", error);
-            rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        } else {
-            userDao.createUser(username, password, email);
-            rd = request.getRequestDispatcher("/RegistrationView.jsp");
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            if (hasErrors) {
+                out.print(0);
+                out.print(error);
+            } else {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cal = Calendar.getInstance();
+
+                if (userDao.createUser(username, password,dateFormat.format(cal.getTime()),fname,lname, email)) {
+                    out.print(1);
+                } else {
+                    out.print(0);
+                    out.print("Problem creating user in DB");
+                }
+
+            }
         }
     }
 
