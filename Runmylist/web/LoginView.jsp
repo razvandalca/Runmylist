@@ -55,18 +55,18 @@
                     <input type="reset" value="Reset">
                 </div>
             </form>
-<!--            <form action= "https://accounts.google.com/o/oauth2/auth?scope=email&
-                            redirect_uri=http://localhost:8080/CallBackController&
-                            response_type=code=&
-                            client_id=701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com&
-                            approval_prompt=force">-->
-<!--            <form action="https://accounts.google.com/o/oauth2/auth?&
-                                redirect_uri=http://localhost:8080/CallBackController&
-                                response_type=code&
-                                client_id=701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com&
-                                access_type=offline&
-                                approval_prompt=force">-->
-<form method="get" action="LoginController">
+            <!--            <form action= "https://accounts.google.com/o/oauth2/auth?scope=email&
+                                        redirect_uri=http://localhost:8080/CallBackController&
+                                        response_type=code=&
+                                        client_id=701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com&
+                                        approval_prompt=force">-->
+            <!--            <form action="https://accounts.google.com/o/oauth2/auth?&
+                                            redirect_uri=http://localhost:8080/CallBackController&
+                                            response_type=code&
+                                            client_id=701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com&
+                                            access_type=offline&
+                                            approval_prompt=force">-->
+            <form method="get" action="LoginController">
                 <input type="submit" value="Google Sign In">
             </form>
         </div>
