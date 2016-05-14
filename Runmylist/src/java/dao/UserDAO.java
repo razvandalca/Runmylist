@@ -66,7 +66,7 @@ public class UserDAO {
         }
          try {
              
-            PreparedStatement prepStmt = connection.prepareStatement("SELECT * from users u where u.username = ?");
+            PreparedStatement prepStmt = connection.prepareStatement("SELECT * from users u where u.google_id = ?");
             prepStmt.setString(1, Hash.getHash(googleID));
             ResultSet rs = prepStmt.executeQuery();
             
@@ -89,7 +89,7 @@ public class UserDAO {
         connection=DBConnection.getConnection();
        
         try {
-            PreparedStatement stmt = connection.prepareStatement("insert into users values (default,?,?,?,?,?,?)");
+            PreparedStatement stmt = connection.prepareStatement("insert into users (`username`, `password`, `creation_date`, `firstname`, `lastname`,`email` )  values (?,?,?,?,?,?)");
             stmt.setString(1, username);
             stmt.setString(2, Hash.getHash(pw));
             stmt.setString(3, creation_date);
@@ -114,14 +114,14 @@ public class UserDAO {
         connection=DBConnection.getConnection();
        
         try {
-            PreparedStatement stmt = connection.prepareStatement("insert into users values (default,?,?,?,?,?,?,?)");
+            PreparedStatement stmt = connection.prepareStatement("insert into users (`username`, `password`, `creation_date`, `firstname`, `lastname`, `google_id`,`email`) values (?,?,?,?,?,?,?)");
             stmt.setString(1, username);
             stmt.setString(2, "");
-            stmt.setString(3, creation_date);
+            stmt.setString(3, creation_date); 
             stmt.setString(4, fname);
             stmt.setString(5, lname);
-            stmt.setString(6, email);
-            stmt.setString(7, Hash.getHash(google_id));
+            stmt.setString(7, email);
+            stmt.setString(6, Hash.getHash(google_id));
             stmt.executeUpdate();
             connection.commit();
             return true;
@@ -190,7 +190,7 @@ public class UserDAO {
         public  int getUserIDWithGoogleID(String google_id) throws SQLException{
         
         connection=DBConnection.getConnection();
-        PreparedStatement prepStmt = connection.prepareStatement("select id from users u where u.username = ? ");
+        PreparedStatement prepStmt = connection.prepareStatement("select user_id from users where google_id = ? ");
         prepStmt.setString(1, Hash.getHash(google_id));
         ResultSet rs = prepStmt.executeQuery();
         

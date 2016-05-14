@@ -36,7 +36,7 @@ RML.Login = new function(){
 				console.log('parameters to send for regestration: \n' + params);
 				$.ajax({
 					url: 'http://localhost:8080/Runmylist/RegisterController',
-					date: params,
+					data: params,
 					method: "post",
 					success: function(rsp) {
 						alert(rsp);
@@ -55,7 +55,7 @@ RML.Login = new function(){
 				console.log('parameters to send for regestration: \n' + params);
 				$.ajax({
 					url: 'http://localhost:8080/Runmylist/LoginController',
-					date: params,
+					data: params,
 					method: "post",
 					success: function(rsp) {
 						alert(rsp);

@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
+
             switch (request.getParameter("login_type")) {
                 case "default":
                     String username = request.getParameter("username").trim();
@@ -56,7 +57,7 @@ public class LoginController extends HttpServlet {
                         userDAO.createUserFromGoogle(usernamegoogle, "", dateFormat.format(cal.getTime()), fname, lname, email, googleid);
                     }
                     out.print(1);
-                    request.getSession().setAttribute("user_session", userDAO.getUserID(googleid));
+                    request.getSession().setAttribute("user_session", userDAO.getUserIDWithGoogleID(googleid));
 
             }
         } catch (SQLException ex) {

@@ -37,14 +37,14 @@ public class RegisterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher rd;
         String error = "";
         boolean hasErrors = false;
         String username = request.getParameter("username");
-        String password = request.getParameter("password").trim();
-        String email = request.getParameter("email").trim();
-        String fname = request.getParameter("firstname").trim();
-        String lname = request.getParameter("lastname").trim();
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String fname = request.getParameter("firstname");
+        String lname = request.getParameter("lastname");
+        System.out.println(username);
 
         if (username.equals("") || username == null || password.equals("") || password == null || email.equals("") || email == null || fname.equals("") || fname == null || fname.equals("") || fname == null) {
             hasErrors = true;

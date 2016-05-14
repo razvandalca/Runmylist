@@ -11,8 +11,8 @@ function onSuccess(googleUser) {
 	var params = "login_type=google&firstname=" + f_name + "&lastname=" + l_name + '&email=' + email +  "&google_id=" + user_id + "&username=" + username;
 	console.log('parameters to send for regestration: \n' + params);
 	$.ajax({
-		url: 'http://localhost:8080/runmylist/LoginController',
-		date: params,
+		url: 'http://localhost:8080/Runmylist/LoginController',
+		data: params,
 		method: "post",
 		success: function(rsp) {
 			alert(rsp);
