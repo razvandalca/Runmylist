@@ -1,6 +1,6 @@
 html {
     font-family: Roboto, sans-serif;
-    background-image: url(../../images/background-pattern.png);
+    background-image: url(../images/background-pattern.png);
     background-attachment: fixed;
     position: relative;
     min-height: 100%;
@@ -167,7 +167,7 @@ textarea {
 }
 
 .card-info__play-btn {
-    background-image: url(../../images/pl-play.png);
+    background-image: url(../images/pl-play.png);
     width: 20px;
     height: 30px;
     float: right;
@@ -208,7 +208,11 @@ footer {
     left: 50%;
     top: 120px;
     margin-left: -106px;
-    padding: 10px 27px
+    padding: 10px 27px;
+	z-index: 20;
+}
+.login--visible {
+	display: block;
 }
 
 .login__intro-text {
@@ -469,26 +473,26 @@ footer {
 }
 
 .player__play-button {
-    background-image: url(../../images/play.png);
+    background-image: url(../images/play.png);
     width: 11px;
     height: 16px;
     box-sizing: border-box
 }
 
 .player__prev-button {
-    background-image: url(../../images/prev.png);
+    background-image: url(../images/prev.png);
     width: 14px;
     height: 16px
 }
 
 .player__next-button {
-    background-image: url(../../images/next.png);
+    background-image: url(../images/next.png);
     width: 14px;
     height: 16px
 }
 
 .player__repeat-button {
-    background-image: url(../../images/repeat.png);
+    background-image: url(../images/repeat.png);
     width: 15px;
     height: 16px
 }
@@ -523,7 +527,7 @@ footer {
 }
 
 .playlist-item__delete {
-    background-image: url(../../images/item-delete.png);
+    background-image: url(../images/item-delete.png);
     background-repeat: no-repeat;
     position: absolute;
     width: 16px;
@@ -547,5 +551,23 @@ footer {
     font-size: 80%
 }
 
-
+.gray-background {
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	background-color: black;
+	opacity: 0.3;
+	z-index: 10;
+	display: none;
+}
+.visible {
+	display: block !important;
+}
+.fixed {
+	position: fixed;
+}
 /*# sourceMappingURL=master.min.css.map */

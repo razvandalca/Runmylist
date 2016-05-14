@@ -34,10 +34,10 @@
 							Search music
 						</button>
 					</form>
-					<div class="login-cont">
-						<div class="login-cont__btn">Log in</div>
+					<div class="login-cont js-login-cont">
+						<div class="login-cont__btn js-login-cont__btn-login">Log in</div>
 						<span class="login-cont__seperator">|</span>
-						<div class="login-cont__btn">Sign up</div>
+						<div class="login-cont__btn js-login-cont__btn-register">Sign up</div>
 					</div>
 				</div>
 			</div>
@@ -222,20 +222,41 @@
 		</footer>
 
 		<!--absolute positioned divs-->
-		<div class="login absolute">
+		<div class="login fixed js-popup">
 			<div class="login__intro-text">
 				login for even better experience.
 			</div>
 			<button  onclick="return fbAuth()" class="login__fb-btn"> Connect with facebook</button>
 			<div class="login__seperator"><hr></div>
-			<div id="my-signin2" class=""></div>
+			<div id="google_login_btn" class=""></div>
+			<form class="register" method="POST" action="" autocomplete="off">
+				<h2>Register</h2>
+				<div style="color:red"> </div>
+				<input class="register__input js-register__email" type="text" name="email" placeholder="Email">
+				<input class="register__input js-register__username" type="text" name="username" placeholder="Username">
+				<input class="register__input js-register__firstname" type="text" name="firstname" placeholder="firstname">
+				<input class="register__input js-register__lastname" type="text" name="lastname" placeholder="lastname">
+				<input class="register__input js-register__password" type="password" name="password" placeholder="Password">
+				<input class="register__input js-register__password-r"  type="password" name="pass_rep" placeholder="Repeat Password"> <br>
+				<input type="hidden" name="operation" value="register">
+				<button class="" type="submit">Sign Up!</button>
+			</form>
+			<form class="login" method="post" action="" >
+				<label for="username">Username</label>
+				<input class="js-login__username" type="text" name="username" required>
+				<label for="password">Password</label>
+				<input class="js-login__password" type="password" name="password" required>
+				<button type="submit">Log in</button>
+			</form>
 		</div>
 		<div id="status"></div>
+		<div class="js-gray-background gray-background absolute"></div>
 
 		<!----------scripts---------->
 		<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 		<script src="./scripts/master.js"></script>
 		<script src="./scripts/components/RML.navbar.js"></script>
+		<script src="./scripts/components/RML.login_register.js"></script>
 		<script src="./scripts/components/RML.playlist.js"></script>
 		<script src="./scripts/components/RML.Uplayer.js"></script>
 		<script src="./scripts/components/RML.js"></script>
