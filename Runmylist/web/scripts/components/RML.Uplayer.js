@@ -121,98 +121,55 @@ RML.Uplayer = new function(){
 			},150);
 		}
 	};
-	this.loadPlaylist = function(pl_name, auth) {
-		if(!document.getElementById('the_list'))
-			uplayer.loadListApp(pl_name);
-		if(auth != null) {
-			$.ajax({
-				url: 'pl_mngr/load_pl.php',
-				data: "pl_name=" + pl_name + "&auth=" + auth,
-				success: function(responseText) {
-					loc = 0;
-					$('#pl_title').html(pl_name);
-					$('#the_list').html(responseText);
-					$('.pl_video_elm:eq('+loc+')').toggleClass('pl_vid pl_vid_playing');
-				},
-				type: 'post'
-			});
+	this.clearPlayer = function() {
+		
+		//vars
+		var $playlist = $('.playlist'),
+			$player = $playlist.find('.player'),
+			$playlist_items_cont = $playlist.find('.playlist-items').find('ul');
+		
+		$playlist_items_cont.find('li').empty();
+		
+//		this.STOP();
+		
+	};
+	this.loadPlaylist = function(playlist_info, JSON_data_arr) {
+		
+		//debug
+		console.log(playlist_info);
+		console.log(JSON_data_arr);
+		
+		//vars
+		var $playlist = $('.playlist'),
+			$player = $playlist.find('.player'),
+			$playlist_items_cont = $playlist.find('.playlist-items'),
+			$playlist_items_cont_ul = $playlist_items_cont.find('ul'),
+			$playlist_title = $player.find('.player__title'),
+			playlist_title = playlist_info['playlist_name'],
+			json_size = JSON_data_arr.length;
+		
+		this.clearPlayer();
+		$playlist_title.text(playlist_title);
+		for (var i = 0; i < json_size; i++) {
+			//vars
+			var item = JSON_data_arr[i],
+				title = item['title'],
+				duraiton = item['duraiton'],
+				src_url = './images/' + item['src_type'] + '.png',
+				url = item['url'],
+				author = item['author'], //!!!
+				thumb_url = item['thumb_url'],
+				item_str = '<li data-url="' + url + '" class="playlist-item">'+
+				'<div class="playlist-item__thumbnail"><img class="" src="' + thumb_url + '" /></div>'+
+				'<div class="playlist-item__delete"></div> '+
+				'<div class="playlist-item__title">' + title + '</div>'+
+				'<img class="playlist-item__source" src="' + src_url + '" />'+
+				'<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
+				'</li>';
+			console.log('item to add: \n' + item_str);
+			$playlist_items_cont_ul.append($(item_str));
 		}
-		else {
-			if(logged())
-				$.ajax({
-					url: 'pl_mngr/getPL.php',
-					data: "q=get_videos&PL_name=" + pl_name,
-					success: function(responseText) {
-						loc = 0;
-						$('#pl_title').html(pl_name);
-						$('#the_list').html(responseText);
-						//				setTimeout(function(){$('#the_list').html(responseText);},500);
-						$('.pl_video_elm:eq('+loc+')').toggleClass('pl_vid pl_vid_playing');5
-					},
-					type: 'post'
-				});
-			else {
-				var arr = JSON.parse(localStorage[pl_name]);
-				var the_list = document.getElementById('the_list');
-				the_list.innerHTML = '';
-				$('#pl_title').html(pl_name);
-				for (i = 0; i < arr.length; i++) {
-					var title = arr[i]['title'];
-					var duration = arr[i]['duration'];
-					var id = arr[i]['id'];
-					var thumb = arr[i]['thumbnail'];
-					var src = arr[i]['src'];
-					var auth = arr[i]['author'];
-
-					var x = document.createElement('li');
-					x.className = 'a_vid white';
-					x.appendChild(document.createElement('p'));
-					x.appendChild(document.createElement('p'));
-					var img = document.createElement('img');
-					img.src = thumb;
-					img.className = "thumbnail_img";
-					x.appendChild(img);
-
-					var dur = document.createElement('span');
-					dur.className = 'duration_line';
-					dur.innerHTML = duration;
-					x.appendChild(dur);
-
-					var tit = document.createElement('div');
-					tit.className = 'title_line';
-					tit.innerHTML = title;
-					x.appendChild(tit);
-
-					var lit_img = document.createElement('img');
-					lit_img.src = "imgs/" + src + ".png";
-					lit_img.style.cursor = "pointer";
-					x.appendChild(lit_img);
-
-					var au = document.createElement('span');
-					au.className = 'author_line';
-					au.innerHTML = "By: " + auth;
-					x.appendChild(au);
-					x.appendChild(document.createElement('br'));
-
-					clone_edits(id,x,src,title,duration);
-
-					the_list.appendChild(x);
-				}
-				loc = 0;
-				$('.pl_video_elm:eq('+loc+')').toggleClass('pl_vid pl_vid_playing');
-			}
-			IDs = getIDs(pl_name);
-		}
-		loc = 0;
-
-		if(IDs.length != 0) {
-			//need to add setup_player with duration param from IDs array with duration in ti
-			uplayer.playVideo(IDs[0][0],IDs[0][1]);
-			mini($('#page'));
-		}
-		else {
-			loc = undefined;
-		}
+		
 	}; // loads a PL with a name and auth
 	this.STOP = function() {
 		if (this.isReady()) {
@@ -395,7 +352,6 @@ RML.Uplayer = new function(){
 			return;
 		}
 	};
-
 
 
 };

@@ -29,8 +29,8 @@ function onFailure(error) {
 function renderButton() {
 	gapi.signin2.render('google_login_btn', {
 		'scope': 'https://www.googleapis.com/auth/plus.login',
-		'width': 212,
-		'height': 40,
+		'width': 334,
+		'height': 60,
 		'longtitle': true,
 		'theme': 'dark',
 		'onsuccess': onSuccess,

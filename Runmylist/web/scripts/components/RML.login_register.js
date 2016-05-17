@@ -10,16 +10,16 @@ RML.Login = new function(){
 	var $body = $('body');
 	this.init = function() {
 		//variabls
-		
 		var $login_btns_cont = $('.js-login-cont'),
 			$btn_login = $login_btns_cont.find('.js-login-cont__btn-login'),
 			$btn_register = $login_btns_cont.find('.js-login-cont__btn-register'),
-			$login_cont = $('.login'),
+			$login_cont = $('.login-register'),
 			$gray_background = $('.js-gray-background'),
 			$register_form = $('.register'),
-			$login_form = $('.login');
+			$login_form = $('.login'),
+			$show_log_btn = $login_cont.find('.js-login-register__login-show'),
+			$show_reg_btn = $login_cont.find('.js-login-register__register-show');
 			
-
 		//events listeners go here
 		$login_btns_cont.on('click', function() {
 			$login_cont.addClass("visible");
@@ -67,8 +67,26 @@ RML.Login = new function(){
 				});
 			return false;
 		});
+		$show_log_btn.click(function() {
+			var $this = $(this);
+			if($this.hasClass('log-reg-btn--selected')) return false;
+			$this.addClass('log-reg-btn--selected');
+			$show_reg_btn.removeClass('log-reg-btn--selected');
+			$register_form.removeClass('register--visible');
+			$login_form.addClass('visible');
+
+		});
+		$show_reg_btn.click(function() {
+			var $this = $(this);
+			if($this.hasClass('log-reg-btn--selected')) return false;
+			$this.addClass('log-reg-btn--selected');
+			$show_log_btn.removeClass('log-reg-btn--selected');
+			$register_form.addClass('register--visible');
+			$login_form.removeClass('visible');
+		});
 	
-	//other medhtos for Navbar go here...
+		
+		//other methods for login go here...
 };
 
 // Helping funcitons go here
