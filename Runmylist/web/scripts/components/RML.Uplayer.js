@@ -8,7 +8,7 @@ $(function () {
 RML.Uplayer = new function(){
 	var self = this;
 	var $body = $('body');
-
+	this.current_item = {};
 	this.init = function(IDs, pl_name) {
 		// jq vas delarations
 		//...
@@ -41,11 +41,12 @@ RML.Uplayer = new function(){
 			default:
 				break;
 		}
-		if (this.dmReady && this.ytReady && this.scReady) {
-			this.ready = true;
-			this.onUPlayerReady();
+//		if (this.dmReady && this.ytReady && this.scReady) {
+		if (this.ytReady && this.scReady) {
+			self.ready = true;
+			self.onUPlayerReady();
 		} else {
-			this.ready = false;
+			self.ready = false;
 		}
 		return this.ready;
 	};
@@ -128,7 +129,7 @@ RML.Uplayer = new function(){
 			$player = $playlist.find('.player'),
 			$playlist_items_cont = $playlist.find('.playlist-items').find('ul');
 		
-		$playlist_items_cont.find('li').empty();
+		$playlist_items_cont.empty();
 		
 //		this.STOP();
 		
@@ -150,11 +151,13 @@ RML.Uplayer = new function(){
 		
 		this.clearPlayer();
 		$playlist_title.text(playlist_title);
+		
 		for (var i = 0; i < json_size; i++) {
 			//vars
 			var item = JSON_data_arr[i],
 				title = item['title'],
 				duraiton = item['duraiton'],
+				id = item['id'],
 				src_url = './images/' + item['src_type'] + '.png',
 				url = item['url'],
 				author = item['author'], //!!!
@@ -168,8 +171,19 @@ RML.Uplayer = new function(){
 				'</li>';
 			console.log('item to add: \n' + item_str);
 			$playlist_items_cont_ul.append($(item_str));
+			
+			if (i == 0) {
+				self.current_item = {
+					$obj: $playlist_items_cont_ul.find('li:first-child'),
+					src: item['src_type'],
+					id: id,
+					position: 0,
+					title: item['title']
+				}
+			}
 		}
-		
+			
+		this.playVideo();
 	}; // loads a PL with a name and auth
 	this.STOP = function() {
 		if (this.isReady()) {
@@ -217,54 +231,58 @@ RML.Uplayer = new function(){
 			l = -1;
 		return ++l;
 	};
-	this.playVideo = function(id, src) {
-		if (this.isReady()) {
-			this.container.playVideo();
-			if(!IDs) IDs = getIDs($('#pl_title').html());
-
-			var title, duration;
-			for(i = 0; i < IDs.length; i++) { //will redo this cuz IDS will be different
-				if(IDs[i][0] == id) {
-					src = IDs[i][1];
-					title = IDs[i][3];
-					duration = IDs[i][4];
-					auth = IDs[i][2];
-				}
-			}
-			stopCount(); //stop the counter for the time
-			startCount(getTime); //create a new counter for this video
-			this.container.loadPlayerWith(title, duration);
-			this.notify(title, auth, duration);
+	this.playVideo = function() {
+//		this.ready = true;
+		if (self.isReady()) {
+			
+			//vars 
+			var title = self.current_item['title'],
+				id = self.current_item['id'],
+				src = self.current_item['src'],
+				$item = self.current_item['$obj'],
+				position = self.current_item['position'];
+				
+			
+//			this.container.playVideo();
+//			if(!IDs) IDs = getIDs($('#pl_title').html());
+			
+//			stopCount(); //stop the counter for the time
+//			startCount(getTime); //create a new counter for this video
+//			this.container.loadPlayerWith(title, duration);
+//			this.notify(name, auth, duration);
+			this.notify(name, src, 'duration');
+			alert('source is: '+ src);
 			switch(src) {
 				case 'yt':
-					D_player.pause();
-					DZ.player.pause();
+//					D_player.pause();
+//					DZ.player.pause();
 					sc_player.pause();
-					$('#dm_player, #sc_player, #dz_player').hide();
-					$('#yt_player').show();
+					$('.dm-player-cont, .sc-player-cont, .deezer-player-cont').hide();
+					$('.yt-player-cont').show();
+					alert('id to play is; ' + id);
 					player.loadVideoById(id);
 					break;
 
 				case 'dm':
-					$('#yt_player, #dz_player, #sc_player').hide();
+					$('.yt-player-cont, .deezer-player-cont, .sc-player-cont').hide();
 					player.stopVideo(); //yt stop
-					DZ.player.pause();
+//					DZ.player.pause();
 					sc_player.pause();
-					$('#dm_player').show();
-					var str = D_player.src;
-					var oldID = str.substr(39, 7);
-					var new_src = str.replace(oldID, id );
-					D_player.src = new_src;
-					D_player.src += '&autoplay=1'; // used this instead
+					$('.dm-player-cont').show();
+//					var str = D_player.src;
+//					var oldID = str.substr(39, 7);
+//					var new_src = str.replace(oldID, id );
+//					D_player.src = new_src;
+//					D_player.src += '&autoplay=1'; // used this instead
 					//D_player.play(); didnt work
 					break;
 				case 'sc':
 					player.stopVideo();
-					D_player.pause();
-					DZ.player.pause();
+//					D_player.pause();
+//					DZ.player.pause();
 					var url = "https%3A//api.soundcloud.com/tracks/" + id;
-					$('#dm_player, #dz_player, #yt_player').hide();
-					$('#sc_player').show();
+					$('.dm-player-cont, .deezer-player-cont, .yt-player-cont').hide();
+					$('.sc-player-cont').show();
 					sc_player.load(url,{
 						auto_play:true,
 						hide_related:true,
@@ -277,20 +295,20 @@ RML.Uplayer = new function(){
 				case 'dz':
 					player.stopVideo();
 					sc_player.pause();
-					D_player.pause();
+//					D_player.pause();
 
-					$('#dm_player, #sc_player, #yt_player').hide();
-					$('#dz_player').show();
-					DZ.player.playTracks([id]);
+					$('.dm-player-cont, .sc-player-cont, .yt-player-cont').hide();
+					$('.deezer-player-cont').show();
+//					DZ.player.playTracks([id]);
 					break;
 			}
 
-			//replace the URL without reloading the page
-			var val = window.location.href;
-			var new_url = replaceUrlParam(val,"p",$('#pl_title').html());
-			new_url = replaceUrlParam(new_url,"v",loc);
-			change_url(new_url);
-			$('.pl_video_elm:eq('+loc+')').toggleClass('pl_vid pl_vid_playing');
+			//replace the URL without reloading the page !!! (should be a seperate function (maybe Class))
+//			var val = window.location.href;
+//			var new_url = replaceUrlParam(val,"p",$('#pl_title').html());
+//			new_url = replaceUrlParam(new_url,"v",loc);
+//			change_url(new_url);
+//			$('.pl_video_elm:eq('+loc+')').toggleClass('pl_vid pl_vid_playing');
 		}
 		else {
 			// if not ready
@@ -325,7 +343,7 @@ RML.Uplayer = new function(){
 		if (Notification.permission === 'default') {
 			Notification.requestPermission(function () {
 				// ...callback this function once a permission level has been set.
-				this.notify(s_name, auth, dur);
+//				self.notify(s_name, auth, dur);
 			});
 		}
 		// If the user has granted permission for this domain to send notifications...
@@ -396,3 +414,82 @@ UPlayerContainer.prototype.playVid = function() {
 	$('.meter > span').css("width", "1px;");
 	$('.pl_video_elm:eq(' + loc + ')').toggleClass('pl_vid pl_vid_playing');
 }
+
+
+
+
+/************ YOUTUBE JS API ***********/
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+function onYouTubeIframeAPIReady() {
+	player = new YT.Player('yt_player', {
+		height: '204',
+		width: '334',
+		videoId: 'xxxxxxxxxx',
+		playerVars: {
+			//'controls':0,
+			'rel': 0,
+			//'showInfo': 0,
+			'modestBranding': 1
+		},
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
+function onPlayerReady(event) {
+	event.target.playVideo();
+	RML.Uplayer.makeReady("yt");
+}
+function onPlayerStateChange(event) {
+if (event.data == YT.PlayerState.ENDED) {
+	if(loc === IDs.length - 1 && $("#rep_all").hasClass('repeat_all_no')) {
+		return;
+	}
+	if($("#c_rep").hasClass('c_selected')) {
+		RML.Uplayer.playVid(IDs[loc][0]);
+		return; }
+		loc = RML.Uplayer.nextLoc(loc);
+		RML.Uplayer.playVid(IDs[loc][0]);
+	}
+	var pl = document.getElementById('play_pause');
+	if(player.getPlayerState() == 1) {
+		$('#c_play').attr('src', 'imgs/c_pause.png');
+
+	}
+	if(player.getPlayerState() == 2 ) {
+		$('#c_play').attr('src', 'imgs/c_play.png');
+
+	}
+}
+
+
+/************ SoundCloud JS API ***********/
+//var pl = document.getElementById('play_pause');
+var iframeElement = document.getElementById('sc_player');
+var sc_player = SC.Widget(iframeElement);
+sc_player.bind('ready',function(){
+	//what to do when it first loads
+	//sc_player.play();
+	RML.Uplayer.makeReady("sc");
+
+});
+sc_player.bind('finish',function(){
+	if(loc === IDs.length - 1 && $("#rep_all").hasClass('repeat_all_no')) {
+		return;
+	}
+	loc = RML.Uplayer.nextLoc(loc);
+	RML.Uplayer.playVid(IDs[loc][0],IDs[loc][1]);
+});
+sc_player.bind('play',function(){
+	$('#c_play').attr('src', 'imgs/c_pause.png');
+
+});
+sc_player.bind('pause',function(){
+	$('#c_play').attr('src', 'imgs/c_play.png');
+
+});
+

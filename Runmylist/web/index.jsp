@@ -9,6 +9,7 @@
 		<script src="./scripts/components/googleplus.js"></script>
 		<script src="//connect.facebook.net/en_US/sdk.js"></script>
 		<script src="./scripts/components/fb.js"></script>
+		<script src="./scripts/components/soundcloud_api.js"></script>
 		<link rel="stylesheet" href="css/master.css" />
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
 	</head>
@@ -50,7 +51,7 @@
 						<div class="card-front-side">
 							<div class="card-front-side__thumbnail">
 								<img src="./images/test1.jpg" alt="img" />
-							</div>         
+							</div>
 						</div>
 						<div class="card-back-side">
 							<div class="card-back-side__thumbnail">
@@ -59,16 +60,16 @@
 							<div class="card-items">
 								<p class="card-items__header" >Goodbye Lullaby</p>
 								<ul>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item" >i love you</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Wish you were here</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Not enough</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Let go</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Here's to never growing up</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">He wasn't</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Hush hush</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Falling fast</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">4 Real</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Smile</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}' class="card-items__item" >i love you</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}' class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Not enough</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Let go</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Here's to never growing up</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">He wasn't</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Hush hush</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Falling fast</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">4 Real</li>
+									<li data-info='{"id":"1", "title":"eminem..", "duraiton":"03:12", "src_type":"yt", "url":"http://...", "author": "fanckushVevo", "thumb_url":"http://..."}' class="card-items__item">Smile</li>
 								</ul>
 							</div>
 						</div>
@@ -81,7 +82,7 @@
 				</div>
 
 
-			
+
 				<div class="card-container" ontouchstart="this.classList.toggle('hover');">
 					<div class="card js-card ">
 						<div class="card-front-side">
@@ -94,18 +95,18 @@
 								<img src="./images/test1.jpg" alt="img" />
 							</div>
 							<div class="card-items">
-								<p class="card-items__header" >Goodbye Lullaby</p>
+								<p class="card-items__header" >EMINEM Lullaby</p>
 								<ul>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item" >i love you</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Wish you were here</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Not enough</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Let go</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Here's to never growing up</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">He wasn't</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Hush hush</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Falling fast</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">4 Real</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Smile</li>
+									<li data-info='{"id":"j5-yKhDd64s","title":"Eminem- not afraid","duraiton":"02:33","src_type":"yt","url":"https://www.youtube.com/watch?v=j5-yKhDd64s","author":"EminemVEVO","thumb_url":"https://i.ytimg.com/vi/j5-yKhDd64s/hqdefault.jpg?custom=true&w=320&h=180&stc=true&jpg444=true&jpgq=90&sp=68&sigh=dLF-rethYT3hv2-5QIBZlQo_HCI"}'  class="card-items__item" >i love you</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Not enough</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Let go</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Here's to never growing up</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">He wasn't</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Hush hush</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Falling fast</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">4 Real</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Smile</li>
 								</ul>
 							</div>
 						</div>
@@ -121,7 +122,7 @@
 						<div class="card-front-side">
 							<div class="card-front-side__thumbnail">
 								<img src="./images/test3.jpg" alt="img" />
-							</div>         
+							</div>
 						</div>
 						<div class="card-back-side">
 							<div class="card-back-side__thumbnail">
@@ -130,16 +131,16 @@
 							<div class="card-items">
 								<p class="card-items__header" >Goodbye Lullaby</p>
 								<ul>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item" >i love you</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Wish you were here</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Not enough</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Let go</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Here's to never growing up</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">He wasn't</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Hush hush</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Falling fast</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">4 Real</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Smile</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item" >i love you</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Not enough</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Let go</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Here's to never growing up</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">He wasn't</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Hush hush</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Falling fast</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">4 Real</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Smile</li>
 								</ul>
 							</div>
 						</div>
@@ -156,7 +157,7 @@
 						<div class="card-front-side">
 							<div class="card-front-side__thumbnail">
 								<img src="./images/test2.jpg" alt="img" />
-							</div>         
+							</div>
 						</div>
 						<div class="card-back-side">
 							<div class="card-back-side__thumbnail">
@@ -165,16 +166,16 @@
 							<div class="card-items">
 								<p class="card-items__header" >Goodbye Lullaby</p>
 								<ul>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item" >i love you</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Wish you were here</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Not enough</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Let go</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Here's to never growing up</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">He wasn't</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Hush hush</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Falling fast</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">4 Real</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Smile</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item" >i love you</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Not enough</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Let go</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Here's to never growing up</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">He wasn't</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Hush hush</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Falling fast</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">4 Real</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Smile</li>
 								</ul>
 							</div>
 						</div>
@@ -191,7 +192,7 @@
 						<div class="card-front-side">
 							<div class="card-front-side__thumbnail">
 								<img src="./images/test4.jpg" alt="img" />
-							</div>         
+							</div>
 						</div>
 						<div class="card-back-side">
 							<div class="card-back-side__thumbnail">
@@ -200,16 +201,16 @@
 							<div class="card-items">
 								<p class="card-items__header" >Goodbye Lullaby</p>
 								<ul>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item" >i love you</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Wish you were here</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Not enough</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Let go</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Here's to never growing up</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">He wasn't</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Hush hush</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Falling fast</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">4 Real</li>
-									<li data-info="{'id':'1', 'title':'eminem..', 'duraiton':'03:12', 'src_type':'yt', 'url':'http://...', 'author': 'fanckushVevo', 'thumb_url':'http://...'}" class="card-items__item">Smile</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item" >i love you</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Not enough</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Let go</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Here's to never growing up</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">He wasn't</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Hush hush</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Falling fast</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">4 Real</li>
+									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Smile</li>
 								</ul>
 							</div>
 						</div>
@@ -223,7 +224,7 @@
 			</div>
 
 			<div class="playlist">
-				<div class="player"> 
+				<div class="player">
 					<div class="player__title"> best of eminem </div>
 					<div class="player__prev-button player__button"></div>
 					<div class="player__play-button player__button"></div>
@@ -237,49 +238,49 @@
 							<div class="playlist-item__thumbnail">
 								<img class="" src="./images/test5.png" />
 							</div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test2.jpg" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test1.jpg" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test3.jpg" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test5.png" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test4.jpg" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
 						</li>
 						<li class="playlist-item">
 							<div class="playlist-item__thumbnail"><img class="" src="./images/test2.jpg" /></div>
-							<div class="playlist-item__delete"></div> 
+							<div class="playlist-item__delete"></div>
 							<div class="playlist-item__title"> rap god explicit </div>
 							<img class="playlist-item__source" src="./images/youtube.png" alt="yt" />
 							<div class="playlist-item__duration"> 04:23 </div>
@@ -288,7 +289,10 @@
 				</div>
 
 			</div>
-
+			<div class="palyers">
+				<div id="yt_player" class="yt-player-cont"></div>
+				<iframe id="sc_player" class="sc-player-cont" width="320" height="195" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/168285849&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+			</div>
 			<div class="clear"></div>
 		</div>
 		<!--</div>-->

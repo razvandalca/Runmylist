@@ -44,8 +44,8 @@ RML.Playlist = new function() {
 		//vars
 		var JSON_data_arr = [],
 			$card_info = $playlist.find('.card-info'),
-			playlist_title = $card_info.find('.card-info__title'),
-			playlist_song_count = $card_info.find('.card-info__song-count'),
+			playlist_title = $card_info.find('.card-info__title').text(),
+			playlist_song_count = $card_info.find('.card-info__song-count').text(),
 			$play_btn = $card_info.find('.card-info__play-btn'),
 			playlist_info = {
 				playlist_name: playlist_title,
@@ -54,12 +54,10 @@ RML.Playlist = new function() {
 			};
 
 		$playlist.find('.card-items').find('li').each(function() {
-		
-			alert($(this).data('info'));
-			
+
 			//vars
 			var $this = $(this),
-				JSON_data = JSON.parse($this.data('info'));
+				JSON_data = JSON.parse($this.attr('data-info'));
 			
 			//add each item information to the big array
 			JSON_data_arr.push(JSON_data);
