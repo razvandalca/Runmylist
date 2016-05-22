@@ -59,17 +59,29 @@ public class PlaylistDAO {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO `playlists`(`name`, `user_id`) VALUES (?,?)");
             statement.setString(1, name);
             statement.setString(2, userID);
-            statement.execute();
-            connection.commit();
-            
-            System.err.println("CreatePlaylist from DAO");
-            return true;
-
+           if (!listExists(name)) {
+                statement.execute();
+                connection.commit();
+                return true;
+            }
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
         }
+
+        return false;
     }
+    
+        public boolean listExists(String name) throws SQLException {
+        connection = DBConnection.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlists where name = ?");
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            rs.close();
+            return true;
+        }
+        return false;
+    }
+
             //    public ArrayList<PlaylistsItems> getPlItems(int item_id) throws SQLException {
             //
             //        connection = DBConnection.getConnection();
@@ -95,7 +107,7 @@ public class PlaylistDAO {
     public boolean addItemToPlayList(String idItem, String idPlayList) {
         connection = DBConnection.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("insert into playlists_items ('playlist_id','item_id') values (?,?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `playlists_items`( `playlist_id`, `item_id`) values (?,?)");
             statement.setString(1, idPlayList);
             statement.setString(2, idItem);
             statement.execute();
@@ -105,6 +117,17 @@ public class PlaylistDAO {
         } catch (SQLException ex) {
             return false;
         }
+    }
+    public int getId(String name) throws SQLException {
+        connection = DBConnection.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlists where name = ?");
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("playlist_id");
+        }
+        rs.close();
+        return -1;
     }
 
 }
