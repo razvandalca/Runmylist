@@ -69,7 +69,7 @@ RML.Searcber = new function(){
 		var params = "inputQuery=" + str;
 		
 		$.ajax({
-			url: "http://localhost:8080/Runmylist/SearchController",
+			url: "SearchController",
 			data: params,
 			method: 'get',
 			success: function(rsp) {
