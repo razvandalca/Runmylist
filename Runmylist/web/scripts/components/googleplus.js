@@ -2,7 +2,7 @@ function onSuccess(googleUser) {
 	console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
 	//	 login(googleUser);
 	
-	if (RML.Account.isLogged) return;
+	if (RML.Account.isLogged()) return;
 	var profile = googleUser.getBasicProfile();
 	console.log(googleUser.getBasicProfile());
 	var email = profile.getEmail(),
@@ -19,7 +19,7 @@ function onSuccess(googleUser) {
 		success: function(rsp) {
 			console.log("login success:" + rsp);
 			RML.Account.setLogged(true);
-			RML.handleUserloginStatus();
+			RML.Account.handleUserloginStatus();
 		},
 		error: function(err) {
 			console.log("error ajax on google login: ");

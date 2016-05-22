@@ -111,12 +111,12 @@ RML.Account = new function(){
 		if (self.isLogged()) {
 			$logout.removeClass('visible');
 			$login.addClass('visible');
-			$logout_name.text('');
+			$logout_name.text(self.username);
 		}
 		else {
 			$logout.removeClass('visible');
 			$login.addClass('visible');
-			$logout_name.text(self.username);
+			$logout_name.text('');
 		}
 	};
 	
