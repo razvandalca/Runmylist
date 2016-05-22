@@ -45,7 +45,7 @@ RML.Searcber = new function(){
 				url = item['url_content'],
 				author = item['author'], //!!!
 				thumb_url = item['url_thumbnail'],
-				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="result-item">' +
+				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="result-item js-result-item__add">' +
 					'<div class="result-item__thumbnail">' +
 					'<img class="" src="' + thumb_url + '" />' +
 					'</div>' +
@@ -55,7 +55,7 @@ RML.Searcber = new function(){
 					'<div class="result-item__duration">' + duration + '</div>' 
 					'</li>';
 //			console.log('item to add: \n' + item_str);
-			result_count.append($(item_str));
+			$item_results_cont.append($(item_str));
 		}
 		
 	};
