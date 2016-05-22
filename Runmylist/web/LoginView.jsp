@@ -66,7 +66,7 @@
                                             client_id=701669709805-p3l6nr16a7obtl7qappnh0t3i27fl5i6.apps.googleusercontent.com&
                                             access_type=offline&
                                             approval_prompt=force">-->
-            <form method="get" action="LoginController">
+            <form method="get" action="SearchController">
                 <input type="submit" value="Google Sign In">
             </form>
         </div>
