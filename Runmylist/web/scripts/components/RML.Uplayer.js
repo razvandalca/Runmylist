@@ -24,13 +24,14 @@ RML.Uplayer = new function(){
 		
 		//vars
 		var $player = $('.playlist').find('.player'),
-		_$player = {
-			$play_btn: $player.find('.js-player__play-button'),
-			$next_btn: $player.find('.js-player__next-button'),
-			$previous_btn: $player.find('.js-player__prev-button'),
-			$repeat_btn: $player.find('.js-player__repeat-button'),
-			$shuffle_btn: $player.find('.js-player__shuffle-button')
-		}
+			_$player = {
+				$play_btn: $player.find('.js-player__play-button'),
+				$next_btn: $player.find('.js-player__next-button'),
+				$previous_btn: $player.find('.js-player__prev-button'),
+				$repeat_btn: $player.find('.js-player__repeat-button'),
+				$shuffle_btn: $player.find('.js-player__shuffle-button')
+			};
+			
 		
 		// event listeners 
 		_$player.$play_btn.on('click', function() {
@@ -56,25 +57,44 @@ RML.Uplayer = new function(){
 		
 		_$player.$repeat_btn.on('click', function() {
 			if (self.isPlaylistRepeat()) {
-				$(this).removeClass('js-player__shuffle-button--is-shuffle');
-				self.setShuffle(false);
+				$(this).removeClass('player__repeat-button--selected');
+				self.setPlaylistRepeat(false);
 			}
 			else {
-				$(this).addClass('js-player__shuffle-button--is-shuffle');
-				self.setShuffle(true);
+				$(this).addClass('player__repeat-button--selected');
+				self.setPlaylistRepeat(true);
 			}
 		});
 		
 		_$player.$shuffle_btn.on('click', function() {
 			if (self.isShuffle()) {
-				$(this).removeClass('player__repeat-button--is-repeat')
-				self.setPlaylistRepeat(false);
+				$(this).removeClass('player__repeat-button--selected')
+				self.setShuffle(false);
 			}
 			else {
-				$(this).addClass('player__repeat-button--is-repeat')
-				self.setPlaylistRepeat(true);
+				$(this).addClass('player__repeat-button--selected')
+				self.setShuffle(true);
 			}
 		});
+		
+		$(document).on('click', '.playlist-item', function() {
+			
+			//vars
+			var json_size = self.items.length,
+				new_position = -1;
+			
+			for (var i = 0; i < json_size; i++) {
+				console.log(self.items[i].$obj[0]);
+				if (this == self.items[i].$obj[0]) {
+					new_position = self.items[i].position;
+					self.setCurrentItem(new_position);
+					self.playVideo();
+					break;
+				}
+			}
+			
+		});
+		
 	};	
 	this.isSongRepeat = function() {
 		return self.states.songRepeat;
@@ -133,6 +153,16 @@ RML.Uplayer = new function(){
 	};
 	this.isPlaying = function() {
 		return this.states.playing;
+	};
+	this.highlightCurrentItem = function() {
+		
+		//vars
+		var json_size = self.items.length;
+		
+		for (var i = 0; i < json_size; i++) {
+			self.items[i].$obj.removeClass('playlist-item--selected');
+		}
+		self.current_item.$obj.addClass('playlist-item--selected');
 	};
 	this.play = function() {
 		if(this.isReady()) {
@@ -306,9 +336,13 @@ RML.Uplayer = new function(){
 			$playlist_items_cont_ul.append($(item_str));
 		}
 		self.refreshItems();
-		if (json_size != 0) {
+		if (json_size != 0) { //playlist empty
 			self.current_item = self.items[0];	
 			this.playVideo();
+		}
+		else {
+			$('#yt_player').hide();// bad code !!! hide player
+			$('.js-search-types__search-type-videos').click();
 		}
 	}; // loads a PL with a name and auth
 	this.STOP = function() {
@@ -374,6 +408,7 @@ RML.Uplayer = new function(){
 				position = self.current_item['position'];
 				
 			self.refreshFinalItem();
+			self.highlightCurrentItem();
 //			this.container.playVideo();
 //			if(!IDs) IDs = getIDs($('#pl_title').html());
 			
@@ -646,8 +681,13 @@ function onPlayerStateChange(event) {
 //				alert('final item: ' + RML.Uplayer.isFinalItem());
 				RML.Uplayer.playNextItem();
 			}
+			else {
+				if (RML.Uplayer.isPlaylistRepeat())
+					RML.Uplayer.playNextItem();
+			}
 		}
 	}
+	
 }
 
 
