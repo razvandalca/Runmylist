@@ -290,22 +290,38 @@ footer {
     float: right;
     font-size: 17px;
     position: relative;
-    top: 5px
+    top: 5px;
+	display: none;
 }
 
-.login-cont__btn {
+.login-cont__btn, .logout-cont__btn {
     display: inline;
     cursor: pointer;
     -webkit-transition: all .3s;
     transition: all .3s
 }
 
-.login-cont__btn:hover {
+.login-cont__btn:hover, .logout-cont__btn:hover {
     color: #2abaa4
 }
 
 .login-cont__seperator {
     color: #2abaa4;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+.logout-cont {
+	float: right;
+    font-size: 17px;
+    position: relative;
+    top: 5px;
+	display: none;
+}
+.logout-cont__name {
+	color: black;
     font-size: 18px;
     font-weight: lighter;
     margin-left: 5px;

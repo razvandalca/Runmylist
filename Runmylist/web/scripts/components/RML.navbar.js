@@ -103,7 +103,7 @@ RML.Navbar = new function(){
 		$search_form.submit(function() {
 			
 			//temp !!!
-			var request = "url_content=http_test&title=eminem_song&url_thumbnail=http_url&src_type=yt&author=vevo&duration=233&type=addItem&playlistName=demoName";
+			var request = "url_content=http_test&title=eminem_song&url_thumbnail=http_url&src_type=yt&author=vevo&duration=233&type=addItem&playlistName=hello";
 			$.ajax({
 				url: 'PlayListController',
 				mehtod: "post",

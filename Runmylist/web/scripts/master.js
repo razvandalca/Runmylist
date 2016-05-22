@@ -20,7 +20,7 @@ $(function () {
 	RML.Playlist.init();
 	RML.Navbar.init();
     RML.Cards.init();
-    RML.Login.init();
+    RML.Account.init();
 	RML.Searcber.init();
 	// RML.adjustFigureImage.init();
 	// RML.lazyload.content();

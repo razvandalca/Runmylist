@@ -5,9 +5,14 @@ $(function () {
 //	RML.Navbar.init();
 });
 
-RML.Login = new function(){
+RML.Account = new function(){
 	var self = this;
 	var $body = $('body');
+	self.username = '';
+	self.states = {
+		logged: false;
+	}
+	
 	this.init = function() {
 		//variabls
 		var $login_btns_cont = $('.js-login-cont'),
@@ -87,7 +92,90 @@ RML.Login = new function(){
 	
 		
 		//other methods for login go here...
-};
+	};
+	
+	this.handleUserloginStatus = function() {
+//		self.refreshIsLogged();
+		
+		//vars
+		var $logout = $('.js-logout-cont'),
+			$logout_btn = $logout.find.('.js-logout-cont__name'),
+			$logout_name = $logout.find('.js-logout-cont__btn-register'),
+			$login = $('.js-logout-cont'),
+
+		if (self.isLogged()) {
+			$logout.removeClass('visible');
+			$login.addClass('visible');
+			$logout_name.text(username);
+		}
+		else {
+			$logout.removeClass('visible');
+			$login.addClass('visible');
+			$logout_name.text('');
+		}
+	};
+	
+	this.login = function(params) {
+		console.log('parameters to send for regestration: \n' + params);
+		$.ajax({
+			url: 'LoginController',
+			data: params,
+			method: "post",
+			success: function(rsp) {
+				alert(rsp);
+			},
+			error: function(err) {
+				console.log("error ajax on registeration: ");
+				console.log(err);
+			}
+		});
+	}
+	this.logout = function() {
+		$.ajax ({
+			url: "UserManagemantController",
+			data: 'session=logout',
+			method: 'post',
+			success: function(rsp) {
+				if (rsp == "1") {
+					self.setLogged(false);
+					self.handleUserloginStatus();
+				}
+				else {
+					console.log('response' + rsp);
+//					self.setLogged();
+				}
+			},
+			error: function(err) {
+				console.log('big problem here no INERNET');
+			}
+		});
+	}
+	this.isLogged = function() {
+		return self.states.logged;
+	};
+	this.setLogged = function(bool) {
+		self.states.logged = true;
+	}
+	this.refreshIsLogged = function() {
+		 
+		$.ajax ({
+			url: "UserManagemantController",
+			data: 'session=verify',
+			method: 'post',
+			success: function(rsp) {
+				if (rsp == "1")
+					self.setLogged(true);
+				else {
+					console.log('response' + rsp);
+					self.setLogged(false);
+				}
+			},
+			error: function(err) {
+				console.log('big problem here no INERNET');
+			}
+		});
+		
+	}
 
 // Helping funcitons go here
 };
