@@ -212,6 +212,10 @@ RML.Playlist = new function() {
 			//add each item information to the big array
 			$playlist_items_cont_ul.append($(item_str));
 			RML.Uplayer.refreshItems();
+			if (self.states.create_and_load) {
+				RML.Uplayer.setCurrentItem(0)
+				self.states.create_and_load = false;
+			}
 		}
 		else {
 			self.states.create_and_load = true;

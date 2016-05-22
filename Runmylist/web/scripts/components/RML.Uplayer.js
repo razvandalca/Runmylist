@@ -246,6 +246,9 @@ RML.Uplayer = new function(){
 		
 		
 	};
+	this.setCurrentItem = function(position) {
+		self.current_item = self.items[position];
+	}
 	this.loadPlaylist = function(playlist_info, JSON_data_arr) {
 		
 		//debug
