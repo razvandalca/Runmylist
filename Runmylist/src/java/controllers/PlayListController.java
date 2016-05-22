@@ -30,7 +30,8 @@ public class PlayListController extends HttpServlet {
             switch (request.getParameter("type")) {
                 case "addPlaylist": {
                     if (request.getSession().getAttribute("user_session") != null) {
-                        if (addPlaylist(request.getParameter("playlistName"), String.valueOf(UserDAO.getInstance().getUserIDWithGoogleID(request.getSession().getAttribute("user_session").toString())))) {
+                        if (addPlaylist(request.getParameter("playlistName"), request.getSession().getAttribute("user_session").toString())) {
+                            out.println(UserDAO.getInstance().getUserIDWithGoogleID(request.getSession().getAttribute("user_session").toString()));
                             out.print(1);
                             break;
                         } else {

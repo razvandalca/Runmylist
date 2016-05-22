@@ -101,22 +101,8 @@ RML.Navbar = new function(){
 		});
 		
 		$search_form.submit(function() {
+			  
 			
-			//temp !!!
-			var request = "url_content=http_test&title=eminem_song&url_thumbnail=http_url&src_type=yt&author=vevo&duration=233&type=addItem&playlistName=hello&video_id=f3f3";
-			$.ajax({
-				url: 'PlayListController',
-				mehtod: "post",
-				data: request,
-				success: function(rsp) {
-					alert('succes:' + rsp);
-				},
-				error: function(err) {
-					alert("there is an error adding the playloist");
-				}
-			});
-			
-			return false;
 			//vars
 			var search_str = $search_input.val();
 			RML.Searcber.searchItems(search_str);

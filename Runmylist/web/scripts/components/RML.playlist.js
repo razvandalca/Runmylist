@@ -131,32 +131,42 @@ RML.Playlist = new function() {
 		//var
 		var $cards_cont = $('.js-cards-container');
 		var title = data['title'],
-			playlist_str = "<div class=\"card-container\" ontouchstart=\"this.classList.toggle('flip');\">" +
-					"<div class=\"card js-card \">" + 
-						"<div class=\"card-front-side\">" + 
-							"<div class=\"card-front-side__thumbnail\">" + 
-								"<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />" + 
-							"</div>" + 
-						"</div>" + 
-						"<div class=\"card-back-side\">" + 
-							"<div class=\"card-back-side__thumbnail\">" + 
-								"<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />" + 
-							"</div>" + 
-							"<div class=\"card-items\">" + 
-								"<p class=\"card-items__header\" >" + title + "</p>" + 
-								"<ul>" + 
-								"</ul>" + 
-							"</div>" + 
-						"</div>" + 
-					"</div>" + 
-					"<div class=\"card-info\">" + 
-						"<div class=\"card-info__play-btn\"></div>" + 
-						"<div class=\"card-info__title\">" + title + "<</div>" + 
-						"<div class=\"card-info__song-count\"> 0 songs </div>" + 
-					"</div>" + 
-				"</div>",
+			playlist_str = '<div class=\"card-container\" ontouchstart=\"this.classList.toggle(\'flip\');\">' +
+					'<div class=\"card js-card \">' + 
+						'<div class=\"card-front-side\">' + 
+							'<div class=\"card-front-side__thumbnail\">' + 
+								'<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />' + 
+							'</div>' + 
+						'</div>' + 
+						'<div class=\"card-back-side\">' + 
+							'<div class=\"card-back-side__thumbnail\">' + 
+								'<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />' + 
+							'</div>' + 
+							'<div class=\"card-items\">' + 
+								'<p class=\"card-items__header\" >' + title + '</p>' + 
+								'<ul>' + 
+								'</ul>' + 
+							'</div>' + 
+						'</div>' + 
+					'</div>' + 
+					'<div class=\"card-info\">' + 
+						'<div class=\"card-info__play-btn\"></div>' + 
+						'<div class=\"card-info__title\">" + title + "</div>' + 
+						'<div class=\"card-info__song-count\"> 0 songs </div>' + 
+					'</div>' + 
+				'</div>',
 			$new_playlist = $(playlist_str);
-		
+		$.ajax({
+                    url: 'PlayListController',
+                    data: 'playlistName=' + title + '&type=addPlaylist',
+                    method: 'get',
+                    success: function(rsp) {
+                        console.log(rsp);
+                    },
+                    error: function(err) {
+                        console.log("error" + err);
+                    }
+                })
 		$cards_cont.append($new_playlist);
 		return $new_playlist;
 		
@@ -168,42 +178,44 @@ RML.Playlist = new function() {
 			title = data['name'],
 			items_arr = data['items'],
 			items_count = items_arr.length,
-			playlist_str = "<div class=\"card-container\" ontouchstart=\"this.classList.toggle('flip');\">" +
-					"<div class=\"card js-card \">" + 
-						"<div class=\"card-front-side\">" + 
-							"<div class=\"card-front-side__thumbnail\">" + 
-								"<img src=\"" +  + "\" alt=\"img\" />" + 
-							"</div>" + 
-						"</div>" + 
-						"<div class=\"card-back-side\">" + 
-							"<div class=\"card-back-side__thumbnail\">" + 
-								"<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />" + 
-							"</div>" + 
-							"<div class=\"card-items\">" + 
-								"<p class=\"card-items__header\" >" + title + "</p>" + 
-								"<ul>";
+                        playlist_thumbnail = 'haha',
+                       // playlist_thumbnail = items_arr[0]['url_thumbnail'],
+			playlist_str = '<div class="card-container" ontouchstart="this.classList.toggle(\'flip\');">' +
+					'<div class="card js-card ">' + 
+						'<div class="card-front-side">' + 
+							'<div class="card-front-side__thumbnail">' + 
+							'<img src="' + playlist_thumbnail + '" alt="img" />' + 
+						'</div>' + 
+						'</div>' + 
+						'<div class="card-back-side">' + 
+						'<div class="card-back-side__thumbnail">' + 
+								'<img src="' + playlist_thumbnail + '" alt="img" />' + 
+							'</div>' + 
+							'<div class="card-items">' + 
+								'<p class="card-items__header" >' + title + '</p>' + 
+								'<ul>';
 		
 		for(var i = 0; i < items_count; i++) {
 			
 			//vars
 			var item = items_arr[i],
 				title = item['title'],
-				item_str ='<li data-info=\'' + JSON.stringify(item) + '\'  class="card-items__item" >' + title + '</li>';
+				item_str ='<li data-info="' + JSON.stringify(item) + '" class="card-items__item" >' + title + '</li>';
 				
 			playlist_str += item_str;
 		}
 		
-		playlist_str +=	"</ul>" + 
-							"</div>" + 
-						"</div>" + 
-					"</div>" + 
-					"<div class=\"card-info\">" + 
-						"<div class=\"card-info__play-btn\"></div>" + 
-						"<div class=\"card-info__title\">" + title + "<</div>" + 
-						"<div class=\"card-info__song-count\"> 0 songs </div>" + 
-					"</div>" + 
-				"</div>";
-		
+		playlist_str +=	'</ul>' + 
+							'</div>' + 
+						'</div>' + 
+					'</div>' + 
+					'<div class="card-info">' + 
+						'<div class="card-info__play-btn"></div>' + 
+						'<div class="card-info__title">' + title + '<</div>' + 
+						'<div class="card-info__song-count"> 0 songs </div>' + 
+					'</div>' + 
+				'</div>';
+		alert(playlist_str);
 		var $imported_playlist = $(playlist_str);
 		
 		$cards_cont.append($imported_playlist);
@@ -261,34 +273,35 @@ RML.Playlist = new function() {
 		//todo..
 	};
 	this.addItem = function(JSON_data) {
-		if (RML.Account.isLogged()) {
 			
-			//vars
-			var $playlist = $('.playlist'),
+            //vars
+            var $playlist = $('.playlist'),
 //					$player = $playlist.find('.player'),
-				$playlist_items_cont = $playlist.find('.playlist-items'),
-				$playlist_items_cont_ul = $playlist_items_cont.find('ul'),
-				title = JSON_data['title'],
-				duraiton = JSON_data['duraiton'],
-				id = JSON_data['videoId'],
-				src_url = './images/' + JSON_data['src_type'] + '.png',
-				src_type = JSON_data['src_type'],
-				url_content = JSON_data['url_content'],
-				author = JSON_data['author'], //!!!
-				playlist_name = RML.Uplayer.getPlaylistName();
-				url_thumbnail = JSON_data['url_thumbnail'],
-				item_str = '<li data-info=\'' + JSON.stringify(JSON_data) + '\' class="playlist-item">'+
-				'<div class="playlist-item__thumbnail"><img class="" src="' + url_thumbnail + '" /></div>'+
-				'<div class="playlist-item__delete"></div> '+
-				'<div class="playlist-item__title">' + title + '</div>'+
-				'<img class="playlist-item__source" src="' + src_url + '" />'+
-				'<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
-				'</li>';
+                $playlist_items_cont = $playlist.find('.playlist-items'),
+                $playlist_items_cont_ul = $playlist_items_cont.find('ul'),
+                title = JSON_data['title'],
+                duraiton = JSON_data['duraiton'],
+                id = JSON_data['videoId'],
+                src_url = './images/' + JSON_data['src_type'] + '.png',
+                src_type = JSON_data['src_type'],
+                url_content = JSON_data['url_content'],
+                author = JSON_data['author'], //!!!
+                playlist_name = RML.Uplayer.getPlaylistName();
+                url_thumbnail = JSON_data['url_thumbnail'],
+                item_str = '<li data-info=\'' + JSON.stringify(JSON_data) + '\' class="playlist-item">'+
+                '<div class="playlist-item__thumbnail"><img class="" src="' + url_thumbnail + '" /></div>'+
+                '<div class="playlist-item__delete"></div> '+
+                '<div class="playlist-item__title">' + title + '</div>'+
+                '<img class="playlist-item__source" src="' + src_url + '" />'+
+                '<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
+                '</li>';
+               if (RML.Account.isLogged()) {
+
 			//temp !!!
-			var request = "url_content=" + url_content + "&title=" + title + "&url_thumbnail=" + url_thumbnail + "&src_type=" + src_type + "&author=" + author + "&duration=" + duraiton + "&type=addItem&playlistName=hello&video_id=f3f3";
+			var request = "url_content=" + url_content + "&title=" + title + "&url_thumbnail=" + url_thumbnail + "&src_type=" + src_type + "&author=" + author + "&duration=" + duraiton + "&type=addItem&playlistName=" + playlist_name  + "&video_id=" +id ;
 			$.ajax({
 				url: 'PlayListController',
-				mehtod: "post",
+				mehtod: "get",
 				data: request,
 				success: function(rsp) {
 					alert('succes:' + rsp);

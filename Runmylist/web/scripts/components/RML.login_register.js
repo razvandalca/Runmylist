@@ -16,24 +16,30 @@ RML.Account = new function(){
 	this.init = function() {
 		//variabls
 		var $login_btns_cont = $('.js-login-cont'),
-			$btn_login = $login_btns_cont.find('.js-login-cont__btn-login'),
-			$btn_register = $login_btns_cont.find('.js-login-cont__btn-register'),
-			$login_cont = $('.login-register'),
-			$gray_background = $('.js-gray-background'),
-			$register_form = $('.register'),
-			$login_form = $('.login'),
-			$show_log_btn = $login_cont.find('.js-login-register__login-show'),
-			$show_reg_btn = $login_cont.find('.js-login-register__register-show');
+                    $btn_login = $login_btns_cont.find('.js-login-cont__btn-login'),
+                    $btn_register = $login_btns_cont.find('.js-login-cont__btn-register'),
+                    $login_cont = $('.login-register'),
+                    $gray_background = $('.js-gray-background'),
+                    $register_form = $('.register'),
+                    $login_form = $('.login'),
+                    $show_log_btn = $login_cont.find('.js-login-register__login-show'),
+                    $show_reg_btn = $login_cont.find('.js-login-register__register-show'),
+                    $logout_btn = $('.js-logout-cont__btn-register');
 			
 		//events listeners go here
 		$login_btns_cont.on('click', function() {
 			$login_cont.addClass("visible");
 			$gray_background.addClass('visible');
-		})
+		});
 		$gray_background.on('click', function() {
 			$('.js-popup').removeClass('visible');
 			$gray_background.removeClass('visible');
-		})
+		});
+                
+                $logout_btn.on('click', function() {
+                   self.logout(); 
+                });
+                
 		$register_form.submit(function() {
 			var $this = $(this);
 			if ($this.find('.js-register__password').val() == $this.find('.js-register__password-r').val()){
@@ -104,21 +110,23 @@ RML.Account = new function(){
 		
 		//vars
 		var $logout = $('.js-logout-cont'),
-			$logout_btn = $logout.find('.js-logout-cont__name'),
-			$logout_name = $logout.find('.js-logout-cont__btn-register'),
+			$logout_name = $logout.find('.js-logout-cont__name'),
+			$logout_btn = $logout.find('.js-logout-cont__btn-register'),
 			$login = $('.js-login-cont');
 
 		if (self.isLogged()) {
-			$logout.removeClass('visible');
-			$login.addClass('visible');
+                        
+			$logout.addClass('visible');
+			$login.removeClass('visible');
 			$logout_name.text(self.username);
 			
 		}
 		else {
 			
 			//vars
-			var $playlists_cont = $('div .card-container:not(:first-child)').remove();
-			
+		
+         //               var $playlists_cont = $('div .card-container:not(:first-child)').remove();
+
 			$logout.removeClass('visible');
 			$login.addClass('visible');
 			$logout_name.text('');
@@ -144,8 +152,9 @@ RML.Account = new function(){
 		$.ajax ({
 			url: "UserManagemantController",
 			data: 'session=logout',
-			method: 'post',
+			method: 'get',
 			success: function(rsp) {
+                            alert(rsp);
 				if (rsp == "1") {
 					self.setLogged(false);
 					self.handleUserloginStatus();
@@ -164,7 +173,7 @@ RML.Account = new function(){
 		return self.states.logged;
 	};
 	this.setLogged = function(bool) {
-		self.states.logged = true;
+		self.states.logged = bool;
 	}
 	this.refreshIsLogged = function() {
 		 

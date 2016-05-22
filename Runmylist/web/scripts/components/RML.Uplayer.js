@@ -411,11 +411,12 @@ RML.Uplayer = new function(){
 			
 			//vars 
 			var title = self.current_item['title'],
-				id = self.current_item['id'],
-				url = self.current_item['url_content'],
-				src = self.current_item['src'],
-				$item = self.current_item['$obj'],
-				position = self.current_item['position'];
+                            id = self.current_item['id'],
+                            url = self.current_item['url_content'],
+                            src = self.current_item['src'],
+                            $item = self.current_item['$obj'],
+                            duration = self.current_item['duration'],
+                            position = self.current_item['position'];
 				
 			self.refreshFinalItem();
 			self.highlightCurrentItem();
@@ -425,7 +426,7 @@ RML.Uplayer = new function(){
 //			stopCount(); //stop the counter for the time
 //			startCount(getTime); //create a new counter for this video
 //			this.container.loadPlayerWith(title, duration);
-			this.notify(name, src, duraiton);
+			this.notify(name, src, duration);
 			self.setIdLoaded(true);
 //			alert('source is: '+ src);
 			switch(src) {

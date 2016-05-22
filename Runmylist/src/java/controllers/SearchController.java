@@ -49,7 +49,7 @@ public class SearchController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             ArrayList<MyTrack> resultArray=youtubeQuery(request.getParameter("inputQuery"));
 //            request.getParameter("inputQuery")
-//            resultArray.addAll(soundCloudQuery("Rihana"));
+            resultArray.addAll(soundCloudQuery("Rihana"));
             Collections.shuffle(resultArray);
             JSONObject jSONObject;
             JSONArray jSonArray = new JSONArray();
@@ -72,7 +72,6 @@ public class SearchController extends HttpServlet {
 
 
         } catch (JSONException ex) {
-            System.out.println("TEST");
             ex.printStackTrace();
             Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,7 +131,7 @@ public class SearchController extends HttpServlet {
             track.setDuration(trackSC.getDuration().toString());
             track.setSrcType("sc");
             track.setTitle(trackSC.getTitle());
-            track.setUrlContent(trackSC.getStreamUrl());
+            track.setUrlContent(trackSC.getPermalinkUrl());
             track.setUrlThumbnail(trackSC.getArtworkUrl());
             track.setVideoID(trackSC.getId().toString());
             searchResultsArrayList.add(track);
