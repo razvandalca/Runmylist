@@ -9,20 +9,90 @@ RML.Uplayer = new function(){
 	var self = this;
 	var $body = $('body');
 	this.current_item = {};
+	this.states = {
+		ready: false,
+		playing: false,
+		shuffle: false,
+		playlistRepeat: false,
+		songRepeat: false,
+		lastItem: false
+	}
+	this.items = [];
+	
 	this.init = function(IDs, pl_name) {
-		// jq vas delarations
-		//...
-		this.vol; //volume
-		this.playing = false; //is playing 
-		this.cur_IDs = IDs || {}; // curr ids in the playlist
-		this.pl_name = pl_name || "";
-		this.videos_count = this.cur_IDs.length || 0;
-		this.container = new UPlayerContainer();
-
-		// initial code example:
-		// if (self.ready) {...} else self.attemptReady()....
+		
+		//vars
+		var $player = $('.playlist').find('.player'),
+		_$player = {
+			$play_btn: $player.find('.js-player__play-button'),
+			$next_btn: $player.find('.js-player__next-button'),
+			$previous_btn: $player.find('.js-player__prev-button'),
+			$repeat_btn: $player.find('.js-player__repeat-button'),
+			$shuffle_btn: $player.find('.js-player__shuffle-button')
+		}
+		
+		// event listeners 
+		_$player.$play_btn.on('click', function() {
+			if (self.isReady()) {
+				self.togglePlay();
+			}
+		});
+		
+		_$player.$next_btn.on('click', function() {
+			if (self.isReady()) {
+				self.playNextItem();
+			}
+		});
+		
+		_$player.$previous_btn.on('click', function() {
+			if (self.isReady()) {
+				self.playPreviousItem();
+			}
+		});
+		
+		_$player.$repeat_btn.on('click', function() {
+			if (self.isPlaylistRepeat()) {
+				$(this).removeClass('js-player__shuffle-button--is-shuffle');
+				self.setShuffle(false);
+			}
+			else {
+				$(this).addClass('js-player__shuffle-button--is-shuffle');
+				self.setShuffle(true);
+			}
+		});
+		
+		_$player.$shuffle_btn.on('click', function() {
+			if (self.isShuffle()) {
+				$(this).removeClass('player__repeat-button--is-repeat')
+				self.setPlaylistRepeat(false);
+			}
+			else {
+				$(this).addClass('player__repeat-button--is-repeat')
+				self.setPlaylistRepeat(true);
+			}
+		});
+	};	
+	this.isSongRepeat = function() {
+		return self.states.songRepeat;
 	};
-
+	this.isPlaylistRepeat = function() {
+		return self.states.playlistRepeat;
+	};
+	this.setSongRepeat = function(repeat) {
+		self.states.songRepeat = repeat;
+	};
+	this.setPlaylistRepeat = function(repeat) {
+		self.states.playlistRepeat = repeat;
+	}
+	this.setShuffle = function(shuffle) {
+		self.states.shuffle = shuffle;
+	}
+	this.isFinalItem = function() {
+		return self.states.lastItem;
+	}
+	this.refreshFinalItem = function() {
+		self.states.lastItem =  self.current_item.position  == (self.items.length - 1);
+	}
 	// methods of the class Uplayer
 	this.makeReady = function(src) {
 		switch (src) {
@@ -43,22 +113,22 @@ RML.Uplayer = new function(){
 		}
 //		if (this.dmReady && this.ytReady && this.scReady) {
 		if (this.ytReady && this.scReady) {
-			self.ready = true;
+			self.states.ready = true;
 			self.onUPlayerReady();
 		} else {
-			self.ready = false;
+			self.states.ready = false;
 		}
-		return this.ready;
+		return this.states.ready;
 	};
 	this.onUPlayerReady = function() {
 		//...this function will trigger when all sub-players are ready
 		console.log("Universal player is ready!");
 	};
 	this.isReady = function() {
-		return this.ready;
+		return this.states.ready;
 	};
 	this.isPlaying = function() {
-		return this.playing;
+		return this.states.playing;
 	};
 	this.play = function() {
 		if(this.isReady()) {
@@ -78,7 +148,7 @@ RML.Uplayer = new function(){
 					DZ.player.play();
 					break;
 			}
-			this.playing = true;
+			this.states.playing = true;
 		} else { // if not ready
 			setTimeout(function(){
 				this.play();
@@ -87,9 +157,11 @@ RML.Uplayer = new function(){
 		}
 	};
 	this.togglePlay = function() {
-		if (this.isReady) {
-			this.container.togglePlayer();
-			var src = IDs[loc][1];
+		if (this.isReady()) {
+
+			//vars
+			var src = self.current_item['src'];
+
 			switch (src) {
 				case 'dm':
 					D_player.togglePlay();
@@ -97,13 +169,20 @@ RML.Uplayer = new function(){
 				case 'yt':
 					if(player.getPlayerState() == 1) {
 						player.pauseVideo();
+						self.states.playing = false;
 					} else
-						if(player.getPlayerState() == 2 ) {
+						if(
+							player.getPlayerState() == -1 || //not started
+							player.getPlayerState() == 0 || //ended
+							player.getPlayerState() == 2 // paused
+						  ) {
 							player.playVideo();
+							self.states.playing = true;
 						}
 					break;
 				case 'sc':
 					sc_player.toggle();
+					self.states.playing = ! self.states.playing;
 					break;
 				case 'dz':
 					if(DZ.player.isPlaying()) {
@@ -131,7 +210,40 @@ RML.Uplayer = new function(){
 		
 		$playlist_items_cont.empty();
 		
-//		this.STOP();
+		this.STOP();
+		
+	};
+	this.refreshItems = function() {
+		
+		//vars
+		var $playlist = $('.playlist'),
+			$player = $playlist.find('.player'),
+			$playlist_items_cont = $playlist.find('.playlist-items'),
+			$playlist_items = $playlist_items_cont.find('ul').find('li');
+		self.items = [];
+		$playlist_items.each(function(i) {
+			//vars 
+			var $this = $(this),
+				item = JSON.parse($this.attr('data-info')),
+				title = item['title'],
+				duraiton = item['duraiton'],
+				id = item['id'],
+				src_type =item['src_type'],
+				url = item['url'],
+				author = item['author'], //!!!
+				thumb_url = item['thumb_url'];
+
+			self.items[i] = {
+				$obj: $this,
+				src: src_type,
+				id: id,
+				position: i,
+				title: title
+			}
+		})
+		
+		
+		
 		
 	};
 	this.loadPlaylist = function(playlist_info, JSON_data_arr) {
@@ -162,38 +274,34 @@ RML.Uplayer = new function(){
 				url = item['url'],
 				author = item['author'], //!!!
 				thumb_url = item['thumb_url'],
-				item_str = '<li data-url="' + url + '" class="playlist-item">'+
+				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="playlist-item">'+
 				'<div class="playlist-item__thumbnail"><img class="" src="' + thumb_url + '" /></div>'+
 				'<div class="playlist-item__delete"></div> '+
 				'<div class="playlist-item__title">' + title + '</div>'+
 				'<img class="playlist-item__source" src="' + src_url + '" />'+
 				'<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
 				'</li>';
-			console.log('item to add: \n' + item_str);
+//			console.log('item to add: \n' + item_str);
 			$playlist_items_cont_ul.append($(item_str));
-			
-			if (i == 0) {
-				self.current_item = {
-					$obj: $playlist_items_cont_ul.find('li:first-child'),
-					src: item['src_type'],
-					id: id,
-					position: 0,
-					title: item['title']
-				}
-			}
 		}
-			
+		self.refreshItems();
+		self.current_item = self.items[0];	
 		this.playVideo();
 	}; // loads a PL with a name and auth
 	this.STOP = function() {
-		if (this.isReady()) {
-			//alert("YUP MEEE");
-			D_player.pause();
-			D_player.load('2');
-			DZ.player.pause();
+		if (self.isReady()) {
+			
+			//vars
+			var $play_btn = $('.js-player__play-button player__button');
+			
+			
+//			D_player.pause();
+//			D_player.load('2');
+//			DZ.player.pause();
 			sc_player.pause();
 			player.stopVideo(); //yt stop
-			$('#c_play').attr('src', 'imgs/c_play.png');
+			$play_btn.addClass('player__play-button--pause');
+//			$('#c_play').attr('src', 'imgs/c_play.png');
 		}
 		else { // if not ready
 			var _this = this;
@@ -204,7 +312,7 @@ RML.Uplayer = new function(){
 		}
 	};
 	this.preLoc = function (l) {
-		if(this.isShuffleMode()) {
+		if(this.isShuffle()) {
 			var random_integer = -5;
 			do {
 				random_integer = Math.floor(Math.random() * IDs.length);
@@ -216,11 +324,11 @@ RML.Uplayer = new function(){
 			l = (IDs.length);
 		return --l;
 	};
-	this.isShuffleMode = function () {
-		return $('#c_shuf').hasClass('c_selected');
+	this.isShuffle = function () {
+		return self.states.shuffle;
 	}
 	this.nextLoc = function (l) {
-		if(this.isShuffleMode()) {
+		if(this.isShuffle()) {
 			var random_integer = -5;
 			do {
 				random_integer = Math.floor(Math.random() * IDs.length);
@@ -242,7 +350,7 @@ RML.Uplayer = new function(){
 				$item = self.current_item['$obj'],
 				position = self.current_item['position'];
 				
-			
+			self.refreshFinalItem();
 //			this.container.playVideo();
 //			if(!IDs) IDs = getIDs($('#pl_title').html());
 			
@@ -319,6 +427,61 @@ RML.Uplayer = new function(){
 			},100);
 		}
 	};
+	this.playNextItem = function(){
+		
+		//vars
+		var current_position = parseInt(self.current_item['position']),
+			items_count = self.items.length,
+			new_position = null;
+		
+		if(this.isShuffle()) {
+			
+			//vars
+			var random_integer = -5;
+			
+			do {
+				random_integer = Math.floor(Math.random() * items_count);
+			} while(random_integer == current_position);
+			new_position = random_integer;
+			
+			console.log('random generated number:' + random_integer);
+		}
+		else {
+			new_position = current_position == (items_count - 1) ? 0 : (current_position + 1);
+		}
+		
+		self.current_item = self.items[new_position];
+		self.playVideo();
+	};
+	this.playPreviousItem = function(){
+		
+		//vars
+		var current_position = parseInt(self.current_item['position']),
+			items_count = self.items.length,
+			new_position = null;
+		
+		if(this.isShuffle()) {
+			
+			//vars
+			var random_integer = -5;
+			
+			do {
+				random_integer = Math.floor(Math.random() * items_count);
+			} while(random_integer == current_position);
+			new_position = random_integer;
+			
+			console.log('random generated number:' + random_integer);
+		}
+		else {
+			new_position = current_position == 0 ? items_count - 1 : (current_position - 1);
+		}
+		
+		self.current_item = self.items[new_position];
+		self.playVideo();
+	};
+	this.isLast = function () {
+		return self.states.lastItem;
+	};
 	this.setVolume = function() {
 		$('#vol_cntr_container').stop().show(0).stop().delay(500).fadeOut('slow');
 		var $meter = $('#vol_meter > span');
@@ -370,7 +533,7 @@ RML.Uplayer = new function(){
 			return;
 		}
 	};
-
+	
 
 };
 
@@ -407,7 +570,7 @@ UPlayerContainer.prototype.loadPlayerWith = function(title, duration) {
 	$('#c_cur_duration').html('0:00');
 }; //fills the Uplayer with data
 
-UPlayerContainer.prototype.playVid = function() {
+UPlayerContainer.prototype.playItem = function() {
 	$('#c_play').attr('src', 'imgs/c_pause.png');
 	$('.pl_video_elm').removeClass('pl_vid_playing');
 	$("#player").show(0);
@@ -445,24 +608,21 @@ function onPlayerReady(event) {
 	RML.Uplayer.makeReady("yt");
 }
 function onPlayerStateChange(event) {
-if (event.data == YT.PlayerState.ENDED) {
-	if(loc === IDs.length - 1 && $("#rep_all").hasClass('repeat_all_no')) {
-		return;
-	}
-	if($("#c_rep").hasClass('c_selected')) {
-		RML.Uplayer.playVid(IDs[loc][0]);
-		return; }
-		loc = RML.Uplayer.nextLoc(loc);
-		RML.Uplayer.playVid(IDs[loc][0]);
-	}
-	var pl = document.getElementById('play_pause');
-	if(player.getPlayerState() == 1) {
-		$('#c_play').attr('src', 'imgs/c_pause.png');
+	if (event.data == YT.PlayerState.ENDED) {
+	//	if(loc === IDs.length - 1 && $("#rep_all").hasClass('repeat_all_no')) {
+	//	if(RML.Uplayer.isLast() && !RML.Uplayer.isRepeatAll()) {
+	//		return;
+	//	}
 
-	}
-	if(player.getPlayerState() == 2 ) {
-		$('#c_play').attr('src', 'imgs/c_play.png');
-
+		if(RML.Uplayer.isSongRepeat()) {
+			RML.Uplayer.playVideo();
+		}
+		else {
+			if (!RML.Uplayer.isFinalItem()) {
+//				alert('final item: ' + RML.Uplayer.isFinalItem());
+				RML.Uplayer.playNextItem();
+			}
+		}
 	}
 }
 
@@ -482,7 +642,7 @@ sc_player.bind('finish',function(){
 		return;
 	}
 	loc = RML.Uplayer.nextLoc(loc);
-	RML.Uplayer.playVid(IDs[loc][0],IDs[loc][1]);
+	RML.Uplayer.playItem(IDs[loc][0],IDs[loc][1]);
 });
 sc_player.bind('play',function(){
 	$('#c_play').attr('src', 'imgs/c_pause.png');

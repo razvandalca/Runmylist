@@ -25,9 +25,9 @@
 						<img src="images/logo_rml.png" alt="Run My List Logo" />
 					</div>
 					<div class="js-search-types search-types">
-						<div class="search-types__search-type search-types__search-type--active ">Videos</div>
-						<span class="search-types__seperator">|</span>
-						<div class="search-types__search-type">My playlists</div>
+						<div class="js-search-types__search-type-videos search-types__search-type search-types__search-type--active ">Videos</div>
+						<span class="js-search-types__seperator">|</span>
+						<div class="js-search-types__search-type-my-playlists search-types__search-type">My playlists</div>
 					</div>
 					<form class="js-search-form search-form">
 						<input type="text" placeholder="Search for music" class="js-search-form__search-input search-form__search-input" name="search" />
@@ -44,8 +44,48 @@
 			</div>
 		</div>
 		<div class="main-wrapper js-main-wrapper">
-			<div class="cards-container js-cards-container">
+			<div class="result-items visible js-result-items">
+				<li class="result-item">
+					<div class="result-item__thumbnail">
+						<img class="" src="./images/test5.png" />
+					</div>
+					<div class="result-item__add"></div>
+					<div class="result-item__title"> rap god explicit </div>
+					<img class="result-item__source" src="./images/youtube.png" alt="yt" />
+					<div class="result-item__duration"> 04:23 </div>
+				</li>
+				<li class="result-item">
+					<div class="result-item__thumbnail">
+						<img class="" src="./images/test5.png" />
+					</div>
+					<div class="result-item__add"></div>
+					<div class="result-item__title"> rap god explicit </div>
+					<img class="result-item__source" src="./images/youtube.png" alt="yt" />
+					<div class="result-item__duration"> 04:23 </div>
+				</li>
+			</div>
+			<div class="cards-container cards-container--visiblse js-cards-container">
 
+				<div class="card-container" ontouchstart="this.classList.toggle('hover');">
+					<div class="card js-card ">
+						<div class="card-front-side">
+							<div class="card-front-side__thumbnail-new">
+<!--								<img src="./images/test1.jpg" alt="img" />-->
+								+
+							</div>
+						</div>
+						
+					</div>
+					<div class="card-info">
+						<div class="card-info__new-btn"></div>
+						<div class="card-info__title">New playlist</div>
+						<div class="card-info__song-count"> ? songs </div>
+					</div>
+				</div>
+
+
+				
+				
 				<div class="card-container" ontouchstart="this.classList.toggle('hover');">
 					<div class="card js-card ">
 						<div class="card-front-side">
@@ -98,15 +138,8 @@
 								<p class="card-items__header" >EMINEM Lullaby</p>
 								<ul>
 									<li data-info='{"id":"j5-yKhDd64s","title":"Eminem- not afraid","duraiton":"02:33","src_type":"yt","url":"https://www.youtube.com/watch?v=j5-yKhDd64s","author":"EminemVEVO","thumb_url":"https://i.ytimg.com/vi/j5-yKhDd64s/hqdefault.jpg?custom=true&w=320&h=180&stc=true&jpg444=true&jpgq=90&sp=68&sigh=dLF-rethYT3hv2-5QIBZlQo_HCI"}'  class="card-items__item" >i love you</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Wish you were here</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Not enough</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Let go</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Here's to never growing up</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">He wasn't</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Hush hush</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Falling fast</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">4 Real</li>
-									<li data-info='{"id":"1","title":"eminem..","duraiton":"03:12","src_type":"yt","url":"http://...","author":"fanckushVevo","thumb_url":"http://..."}'  class="card-items__item">Smile</li>
+									<li data-info='{"id":"IcrbM1l_BoI","title":"AVICI - wake me up","duraiton":"04:12","src_type":"yt","url":"https://www.youtube.com/watch?v=IcrbM1l_BoI","author":"AVICI","thumb_url":"https://i.ytimg.com/vi/IcrbM1l_BoI/hqdefault.jpg?custom=true&w=320&h=180&stc=true&jpg444=true&jpgq=90&sp=68&sigh=jouNGoRyEDWL7jQmfT7kbavlGxE"}'  class="card-items__item">Wish you were here</li>
+									<li data-info='{"id":"e-ORhEE9VVg","title":"song 3","duraiton":"03:12","src_type":"yt","url":"https://www.youtube.com/watch?v=e-ORhEE9VVg","author":"testVEVO","thumb_url":"https://i.ytimg.com/vi/e-ORhEE9VVg/hqdefault.jpg?custom=true&w=320&h=180&stc=true&jpg444=true&jpgq=90&sp=68&sigh=i1DQB_y3o-S4a4z1SfmUwlHigK0"}'  class="card-items__item">Taylor swift - Blanck space</li>
 								</ul>
 							</div>
 						</div>
@@ -226,11 +259,11 @@
 			<div class="playlist">
 				<div class="player">
 					<div class="player__title"> best of eminem </div>
-					<div class="player__prev-button player__button"></div>
-					<div class="player__play-button player__button"></div>
-					<div class="player__next-button player__button"></div>
-					<div class="player__repeat-button player__button"></div>
-					<div class="player__shuffle-button player__button"></div>
+					<div class="js-player__prev-button player__prev-button player__button"></div>
+					<div class="js-player__play-button player__play-button player__button"></div>
+					<div class="js-player__next-button player__next-button player__button"></div>
+					<div class="js-player__repeat-button player__repeat-button player__button"></div>
+					<div class="js-player__shuffle-button player__shuffle-button player__button"></div>
 				</div>
 				<div class="playlist-items">
 					<ul>
@@ -339,6 +372,12 @@
 				<input class="js-login__submit login__submit" type="submit" name="login" value="Log In">
 			</form>
 		</div>
+		<div class="fixed js-popup playlist-name-form js-playlist-name-form">
+			<form>
+				<label>Playlist name:</label>
+				<input type="text" placeholder="Name" />
+			</form>
+		</div>
 		<div id="status"></div>
 		<div class="js-gray-background gray-background absolute"></div>
 
@@ -351,5 +390,6 @@
 		<script src="./scripts/components/RML.Uplayer.js"></script>
 		<script src="./scripts/components/RML.js"></script>
 		<script src="./scripts/components/RML.cards.js"></script>
+		<script src="./scripts/components/RML.Searcher.js"></script>
 	</body>
 </html>

@@ -18,12 +18,16 @@ RML.Navbar = new function(){
 			is_hidden_logo = false,
 			$main_wrapper = $(document.getElementsByClassName('js-main-wrapper')),
 			$nav = $(document.getElementsByClassName('js-nav-bar')),
-			$search_input = $($nav[0].getElementsByClassName('js-search-form__search-input')),
+			$search_form = $($nav[0].getElementsByClassName('js-search-form')),
+			$search_input = $($search_form[0].getElementsByClassName('js-search-form__search-input')),
 			$search_types = $($nav[0].getElementsByClassName("js-search-types")),
 			$secondary_logo = $($nav[0].getElementsByClassName('js-secondary-logo')),
-			$logo = $(document.getElementsByClassName('js-logo'));
-
+			$logo = $(document.getElementsByClassName('js-logo')),
+			$video_search_type = $nav.find('.js-search-types__search-type-videos'),
+			$my_playlists_search_type = $nav.find('.js-search-types__search-type-my-playlists');
+			
 		//events listeners go here
+
 		$window.scroll(function() {
 			var scroll_amount = $window.scrollTop();
 
@@ -63,10 +67,71 @@ RML.Navbar = new function(){
 				$main_wrapper.removeClass("main-wrapper--margin-top");
 			}
 		});
-
+		
+		$video_search_type.on('click', function() {
+			
+			//vars
+			var $this = $(this),
+				is_selected = $this.hasClass('search-types__search-type--active'),
+				$videos_cont = $('.js-result-items'),
+				$playlists_cont = $('.js-cards-container');
+				
+			if (!is_selected) {
+				$this.addClass('search-types__search-type--active');
+				$playlists_cont.removeClass('cards-container--visible');
+				$my_playlists_search_type.removeClass('search-types__search-type--active');
+				$videos_cont.addClass('visible');
+			}
+		});
+		
+		$my_playlists_search_type.on('click', function() {
+			
+			//vars
+			var $this = $(this),
+				is_selected = $this.hasClass('search-types__search-type--active'),
+				$videos_cont = $('.js-result-items'),
+				$playlists_cont = $('.js-cards-container');
+				
+			if (!is_selected) {
+				$this.addClass('search-types__search-type--active');
+				$video_search_type.removeClass('search-types__search-type--active');
+				$playlists_cont.addClass('cards-container--visible');
+				$videos_cont.removeClass('visible');
+			}
+		});
+		
+		$search_form.submit(function() {
+			
+			//vars
+			var search_str = $search_input.val();
+			self.searchItems(search_str);
+			
+			return false;
+		});
 	}
 	
 	//other medhtos for Navbar go here...
+	
+	this.searchItems = function(str) {
+		
+		//vars
+		var params = "q=" + str
+		
+		$.ajax({
+			url: "/SearchController",
+			data: params,
+			method: 'post',
+			success: function(rsp) {
+				console.log('success' + rsp);
+				rsp = JSON.parse(rsp);
+				RML.Searcber.loadItemSearcbResults(rsp);
+			},
+			error: function(err) {
+				console.log('error:' + err);
+			}
+		});
+		
+	}
 };
 
 // Helping funcitons go here

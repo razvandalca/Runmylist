@@ -21,6 +21,7 @@ $(function () {
 	RML.Navbar.init();
     RML.Cards.init();
     RML.Login.init();
+	RML.Searcber.init();
 	// RML.adjustFigureImage.init();
 	// RML.lazyload.content();
 	// RML.lazyload.image();

@@ -12,14 +12,36 @@ RML.Playlist = new function() {
 	this.init = function() {
 		
 		//vars
-		
+		 var $playlist_name_form = $('.js-playlist-name-form'),
+			 $playlist_name = $playlist_name_form.find('form');
 
 		//code to call methods.. (events listener are written here)
 		$(document).on('click', '.card-info__play-btn', function() {	
 			
 			//vars
 			var $playlist = $(this.parentNode.parentNode);
+			
 			self.loadPlaylist($playlist);
+		});
+		
+		$playlist_name.on('submit', function() {
+			
+			//vars
+			var playlist_new_name = $(this).find('input').val(),
+				$gray_background = $('.js-gray-background'),
+				data = {
+					title: playlist_new_name
+				};
+			
+			self.creatPlaylist(data);
+			$gray_background.click();
+			return false;
+		});
+		
+		$(document).on('click', '.card-front-side__thumbnail-new', function() {
+			
+
+			self.requestPlaylistName();
 		});
        
 	};
@@ -65,8 +87,49 @@ RML.Playlist = new function() {
 		$play_btn.addClass('.card-info__play-btn--playing'); // change the timg to ||
 		RML.Uplayer.loadPlaylist(playlist_info, JSON_data_arr);
 	}
+	this.requestPlaylistName = function() {
+		
+		//vars
+		var $playlist_name_form = $('.js-playlist-name-form'),
+			$playlist_name = $playlist_name_form.find('input'),
+			$gray_background = $('.js-gray-background');
+		
+		$gray_background.addClass('visible');
+		$playlist_name_form.addClass('visible');
+		$playlist_name.focus();
+	}
 	this.creatPlaylist = function(data) {
-		//TOD..
+		
+		//var
+		var $cards_cont = $('.js-cards-container');
+		var title = data['title'],
+			playlist_str = "<div class=\"card-container\" ontouchstart=\"this.classList.toggle('flip');\">" +
+					"<div class=\"card js-card \">" + 
+						"<div class=\"card-front-side\">" + 
+							"<div class=\"card-front-side__thumbnail\">" + 
+								"<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />" + 
+							"</div>" + 
+						"</div>" + 
+						"<div class=\"card-back-side\">" + 
+							"<div class=\"card-back-side__thumbnail\">" + 
+								"<img src=\"./images/new-pl-thumb.jpg\" alt=\"img\" />" + 
+							"</div>" + 
+							"<div class=\"card-items\">" + 
+								"<p class=\"card-items__header\" >" + title + "</p>" + 
+								"<ul>" + 
+								"</ul>" + 
+							"</div>" + 
+						"</div>" + 
+					"</div>" + 
+					"<div class=\"card-info\">" + 
+						"<div class=\"card-info__play-btn\"></div>" + 
+						"<div class=\"card-info__title\">" + title + "<</div>" + 
+						"<div class=\"card-info__song-count\"> 0 songs </div>" + 
+					"</div>" + 
+				"</div>";
+		
+		$cards_cont.append($(playlist_str));
+		
 	};
 	this.deletePlaylist = function(data) {
 		//TODO..
