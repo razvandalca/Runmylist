@@ -12,6 +12,10 @@
         <servlet-name>SearchController</servlet-name>
         <servlet-class>controllers.SearchController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlayListController</servlet-name>
+        <servlet-class>controllers.PlayListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -24,12 +28,16 @@
         <servlet-name>SearchController</servlet-name>
         <url-pattern>/SearchController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayListController</servlet-name>
+        <url-pattern>/PlayListController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
