@@ -102,6 +102,20 @@ RML.Navbar = new function(){
 		
 		$search_form.submit(function() {
 			
+			//temp !!!
+//			$.ajax({
+//				url: 'PlayListController',
+//				mehtod: "post",
+//				data: "type=addPlaylist&playlistName=" + "hello",
+//				success: function(rsp) {
+//					alert('succes:' + rsp);
+//				},
+//				error: function(err) {
+//					alert("there is an error adding the playloist");
+//				}
+//			})
+//			
+//			return false;
 			//vars
 			var search_str = $search_input.val();
 			RML.Searcber.searchItems(search_str);
