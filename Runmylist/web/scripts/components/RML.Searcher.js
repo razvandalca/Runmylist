@@ -45,11 +45,11 @@ RML.Searcber = new function(){
 				url = item['url_content'],
 				author = item['author'], //!!!
 				thumb_url = item['url_thumbnail'],
-				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="result-item js-result-item__add">' +
+				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="result-item ">' +
 					'<div class="result-item__thumbnail">' +
 					'<img class="" src="' + thumb_url + '" />' +
 					'</div>' +
-					'<div class="result-item__add"></div>' +
+					'<div class="result-item__add js-result-item__add"></div>' +
 					'<div class="result-item__title">' + title + '</div>' +
 					'<img class="result-item__source" src="' + src_url + '" alt="yt" />' +
 					'<div class="result-item__duration">' + duration + '</div>' 
