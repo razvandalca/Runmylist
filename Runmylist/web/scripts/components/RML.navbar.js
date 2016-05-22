@@ -104,7 +104,7 @@ RML.Navbar = new function(){
 			
 			//vars
 			var search_str = $search_input.val();
-			self.searchItems(search_str);
+			RML.Searcber.searchItems(search_str);
 			
 			return false;
 		});
@@ -112,26 +112,7 @@ RML.Navbar = new function(){
 	
 	//other medhtos for Navbar go here...
 	
-	this.searchItems = function(str) {
-		
-		//vars
-		var params = "q=" + str
-		
-		$.ajax({
-			url: "/SearchController",
-			data: params,
-			method: 'post',
-			success: function(rsp) {
-				console.log('success' + rsp);
-				rsp = JSON.parse(rsp);
-				RML.Searcber.loadItemSearcbResults(rsp);
-			},
-			error: function(err) {
-				console.log('error:' + err);
-			}
-		});
-		
-	}
+	
 };
 
 // Helping funcitons go here

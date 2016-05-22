@@ -44,6 +44,14 @@ RML.Playlist = new function() {
 			self.requestPlaylistName();
 		});
        
+		
+		$(document).on('click', '.js-result-item__add', function() {
+			
+			//vars
+			var $this = $(this),
+				$item = $(this.parentNode),
+				
+		});
 	};
 
 	// function for renaming a playlist
