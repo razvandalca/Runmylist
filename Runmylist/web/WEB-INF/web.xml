@@ -20,6 +20,10 @@
         <servlet-name>UserManagemantController</servlet-name>
         <servlet-class>controllers.UserManagemantController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InformationLoadingController</servlet-name>
+        <servlet-class>controllers.InformationLoadingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>UserManagemantController</servlet-name>
         <url-pattern>/UserManagemantController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformationLoadingController</servlet-name>
+        <url-pattern>/InformationLoadingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

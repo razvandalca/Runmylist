@@ -32,16 +32,17 @@ public class ItemsDAO {
     public ItemsDAO() {
     }
 
-    public boolean addItem(String title, String th_url, String source_type, String author, String duration, String url) {
+    public boolean addItem(String title, String th_url, String source_type, String author, String duration, String url, String videoID) {
         conn = DBConnection.getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO `items`( `title`, `thumbnail_url`, `source_type`, `author`, `duration`, `url`) VALUES(?,?,?,?,?,?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `items`( `title`, `thumbnail_url`, `source_type`, `author`, `duration`, `url`,'videoID') VALUES(?,?,?,?,?,?)");
             statement.setString(1, title);
             statement.setString(2, th_url);
             statement.setString(3, source_type);
             statement.setString(4, author);
             statement.setString(5, duration);
             statement.setString(6, url);
+            statement.setString(7, videoID);
             if (!urlExists(url)) {
                 statement.execute();
                 conn.commit();
@@ -77,17 +78,25 @@ public class ItemsDAO {
         return -1;
     }
 
-    public ArrayList<MyTrack> getItems() {
+    public MyTrack getItem(String itemID) throws SQLException {
         conn = DBConnection.getConnection();
-        ArrayList<MyTrack> items = new ArrayList<>();
-        try (PreparedStatement prepStmt = conn.prepareStatement("select  * from items")) {
+        MyTrack item = null;
+
+            PreparedStatement prepStmt = conn.prepareStatement("SELECT  `title`, `thumbnail_url`, `source_type`, `author`, `duration`, `url`,`videoID` FROM `items` WHERE item_id = ?");
+            prepStmt.setString(1, itemID);
             ResultSet rs = prepStmt.executeQuery();
-            while (rs.next()) {
-                items.add(new MyTrack(rs.getString("author"), rs.getString("title"), rs.getString("duration"), rs.getString("source_type"), rs.getString("url"), rs.getString("thumbnail_url")));
+            if (rs.next()) {
+            item = new MyTrack();
+            item.setAuthor(rs.getString("author"));
+            item.setTitle(rs.getString("title"));
+            item.setDuration(rs.getString("duration"));
+            item.setSrcType(rs.getString("source_type"));
+            item.setUrlContent(rs.getString("url"));
+            item.setUrlThumbnail(rs.getString("thumbnail_url"));
+            item.setVideoID(rs.getString("videoID"));
             }
-        } catch (SQLException ex) {
-        }
-        return items;
+        return item;
     }
     
+
 }
