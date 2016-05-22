@@ -63,6 +63,28 @@ RML.Searcber = new function(){
 	this.emptyItemResults = function() {
 		$item_results_cont.empty();
 	};
+	this.searchItems = function(str) {
+		
+		//vars
+		var params = "inputQuery=" + str;
+		
+		$.ajax({
+			url: "http://localhost:8080/Runmylist/SearchController",
+			data: params,
+			method: 'get',
+			success: function(rsp) {
+				console.log('success');
+				alert('wuhuuu');
+				console.log(rsp);
+				rsp = JSON.parse(rsp);
+				self.loadItemSearcbResults(rsp);
+			},
+			error: function(err) {
+				console.log('error:' + err);
+			}
+		});
+		
+	}
 };
 
 // Helping funcitons go here
