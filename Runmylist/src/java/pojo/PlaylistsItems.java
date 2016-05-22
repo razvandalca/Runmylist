@@ -6,7 +6,6 @@
 package pojo;
 
 import java.io.Serializable;
-import model.Items;
 
 /**
  *
@@ -19,7 +18,7 @@ public class PlaylistsItems implements Serializable {
     private Integer id;
     private int playlistId;
     private int ordering;
-    private Items itemId;
+    private int itemId;
     private Playlists playlists;
 
     public PlaylistsItems() {
@@ -59,11 +58,11 @@ public class PlaylistsItems implements Serializable {
         this.ordering = ordering;
     }
 
-    public Items getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(Items itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
