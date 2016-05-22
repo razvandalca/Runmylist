@@ -165,7 +165,7 @@ RML.Playlist = new function() {
 		
 		//vars
 		var $cards_cont = $('.js-cards-container'),
-			title = data['playlist']['title'],
+			title = data['name'],
 			items_arr = data['items'],
 			items_count = items_arr.length,
 			playlist_str = "<div class=\"card-container\" ontouchstart=\"this.classList.toggle('flip');\">" +
@@ -299,7 +299,7 @@ RML.Playlist = new function() {
 			});
 		}
 		else {
-			
+			console.log('your work will be lost');
 		}
 		if (self.isLoaded()) {
 			

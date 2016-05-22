@@ -112,8 +112,13 @@ RML.Account = new function(){
 			$logout.removeClass('visible');
 			$login.addClass('visible');
 			$logout_name.text(self.username);
+			
 		}
 		else {
+			
+			//vars
+			var $playlists_cont = $('div .card-container:not(:first-child)').remove();
+			
 			$logout.removeClass('visible');
 			$login.addClass('visible');
 			$logout_name.text('');

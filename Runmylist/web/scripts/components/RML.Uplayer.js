@@ -285,6 +285,7 @@ RML.Uplayer = new function(){
 				$obj: $this,
 				src: src_type,
 				id: id,
+				duraiton: duraiton,
 				url_content: url_content,
 				position: i,
 				title: title
@@ -424,8 +425,7 @@ RML.Uplayer = new function(){
 //			stopCount(); //stop the counter for the time
 //			startCount(getTime); //create a new counter for this video
 //			this.container.loadPlayerWith(title, duration);
-//			this.notify(name, auth, duration);
-			this.notify(name, src, 'duration');
+			this.notify(name, src, duraiton);
 			self.setIdLoaded(true);
 //			alert('source is: '+ src);
 			switch(src) {
@@ -459,7 +459,6 @@ RML.Uplayer = new function(){
 //					var url = "https%3A//api.soundcloud.com/tracks/" + id;
 					$('.dm-player-cont, .deezer-player-cont, #yt_player').hide();
 					$('.sc-player-cont').show();
-					alert("url to play: " + url);
 					sc_player.load(url,{
 						auto_play:true,
 						hide_related:true,
