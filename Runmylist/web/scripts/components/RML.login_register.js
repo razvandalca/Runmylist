@@ -10,7 +10,7 @@ RML.Account = new function(){
 	var $body = $('body');
 	self.username = '';
 	self.states = {
-		logged: false;
+		logged: false
 	}
 	
 	this.init = function() {
@@ -55,21 +55,26 @@ RML.Account = new function(){
 			return false;
 		});
 		$login_form.submit(function() {
-			var $this = $(this);
-				var params = $(this).serialize() + "&login_type=default";
-				console.log('parameters to send for regestration: \n' + params);
-				$.ajax({
-					url: 'http://localhost:8080/Runmylist/LoginController',
-					data: params,
-					method: "post",
-					success: function(rsp) {
-						alert(rsp);
-					},
-					error: function(err) {
-						console.log("error ajax on registeration: ");
-						console.log(err);
-					}
-				});
+			
+			// vars
+			var $this = $(this),
+				name = $this.find('.js-login__username').val(),
+				params = $(this).serialize() + "&login_type=default";
+			
+			self.username = name;
+			console.log('parameters to send for regestration: \n' + params);
+			$.ajax({
+				url: 'http://localhost:8080/Runmylist/LoginController',
+				data: params,
+				method: "post",
+				success: function(rsp) {
+					alert(rsp);	
+				},
+				error: function(err) {
+					console.log("error ajax on registeration: ");
+					console.log(err);
+				}
+			});
 			return false;
 		});
 		$show_log_btn.click(function() {
@@ -90,7 +95,7 @@ RML.Account = new function(){
 			$login_form.removeClass('visible');
 		});
 	
-		
+		self.handleUserloginStatus();
 		//other methods for login go here...
 	};
 	
@@ -99,19 +104,19 @@ RML.Account = new function(){
 		
 		//vars
 		var $logout = $('.js-logout-cont'),
-			$logout_btn = $logout.find.('.js-logout-cont__name'),
+			$logout_btn = $logout.find('.js-logout-cont__name'),
 			$logout_name = $logout.find('.js-logout-cont__btn-register'),
-			$login = $('.js-logout-cont'),
+			$login = $('.js-login-cont');
 
 		if (self.isLogged()) {
 			$logout.removeClass('visible');
 			$login.addClass('visible');
-			$logout_name.text(username);
+			$logout_name.text('');
 		}
 		else {
 			$logout.removeClass('visible');
 			$login.addClass('visible');
-			$logout_name.text('');
+			$logout_name.text(self.username);
 		}
 	};
 	

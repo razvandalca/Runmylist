@@ -18,8 +18,8 @@ RML.Uplayer = new function(){
 		lastItem: false,
 		idLoaded: false
 	}
+	self.playlistName = '';
 	this.items = [];
-	
 	this.init = function(IDs, pl_name) {
 		
 		//vars
@@ -285,6 +285,7 @@ RML.Uplayer = new function(){
 				$obj: $this,
 				src: src_type,
 				id: id,
+				url_content: url_content,
 				position: i,
 				title: title
 			}
@@ -296,6 +297,13 @@ RML.Uplayer = new function(){
 	};
 	this.setCurrentItem = function(position) {
 		self.current_item = self.items[position];
+	}
+	this.setPlaylistName = function(name) {
+		$playlist_title.text(name);
+		self.playlistName = name;
+	}
+	this.getPlaylistName = function() {
+		return self.playlistName = name;
 	}
 	this.loadPlaylist = function(playlist_info, JSON_data_arr) {
 		
@@ -313,7 +321,7 @@ RML.Uplayer = new function(){
 			json_size = JSON_data_arr.length;
 		
 		this.clearPlayer();
-		$playlist_title.text(playlist_title);
+		self.setPlaylistName(playlist_title);
 		
 		for (var i = 0; i < json_size; i++) {
 			//vars
@@ -403,6 +411,7 @@ RML.Uplayer = new function(){
 			//vars 
 			var title = self.current_item['title'],
 				id = self.current_item['id'],
+				url = self.current_item['url_content'],
 				src = self.current_item['src'],
 				$item = self.current_item['$obj'],
 				position = self.current_item['position'];
@@ -447,9 +456,10 @@ RML.Uplayer = new function(){
 					player.stopVideo();
 //					D_player.pause();
 //					DZ.player.pause();
-					var url = "https%3A//api.soundcloud.com/tracks/" + id;
+//					var url = "https%3A//api.soundcloud.com/tracks/" + id;
 					$('.dm-player-cont, .deezer-player-cont, #yt_player').hide();
 					$('.sc-player-cont').show();
+					alert("url to play: " + url);
 					sc_player.load(url,{
 						auto_play:true,
 						hide_related:true,
@@ -706,14 +716,14 @@ sc_player.bind('finish',function(){
 		return;
 	}
 	loc = RML.Uplayer.nextLoc(loc);
-	RML.Uplayer.playItem(IDs[loc][0],IDs[loc][1]);
+//	RML.Uplayer.playItem(IDs[loc][0],IDs[loc][1]);
 });
 sc_player.bind('play',function(){
-	$('#c_play').attr('src', 'imgs/c_pause.png');
+//	$('#c_play').attr('src', 'imgs/c_pause.png');
 
 });
 sc_player.bind('pause',function(){
-	$('#c_play').attr('src', 'imgs/c_play.png');
-
+//	$('#c_play').attr('src', 'imgs/c_play.png');
+//	return false;
 });
 
