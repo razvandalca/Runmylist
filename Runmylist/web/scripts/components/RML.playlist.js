@@ -220,6 +220,7 @@ RML.Playlist = new function() {
 		else {
 			self.states.create_and_load = true;
 			self.requestPlaylistName();
+			RML.Uplayer.setIdLoaded(false);
 		}
 	};
 	this.isLoaded = function() {

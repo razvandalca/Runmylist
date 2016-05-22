@@ -15,7 +15,8 @@ RML.Uplayer = new function(){
 		shuffle: false,
 		playlistRepeat: false,
 		songRepeat: false,
-		lastItem: false
+		lastItem: false,
+		idLoaded: false
 	}
 	this.items = [];
 	
@@ -35,6 +36,9 @@ RML.Uplayer = new function(){
 		_$player.$play_btn.on('click', function() {
 			if (self.isReady()) {
 				self.togglePlay();
+			}
+			else {
+				console.log('not ready to toggle play');
 			}
 		});
 		
@@ -174,10 +178,18 @@ RML.Uplayer = new function(){
 						if(
 							player.getPlayerState() == -1 || //not started
 							player.getPlayerState() == 0 || //ended
-							player.getPlayerState() == 2 // paused
+							player.getPlayerState() == 2 || // paused
+							player.getPlayerState() == 5 // paused
 						  ) {
-							player.playVideo();
-							self.states.playing = true;
+							if (self.idIsLoaded() ) {
+								player.playVideo();
+								self.states.playing = true;
+							}
+							else {
+								player.loadVideoById(self.current_item.id);
+								self.setIdLoaded(true);
+								$('#yt_player').show();
+							}
 						}
 					break;
 				case 'sc':
@@ -200,6 +212,12 @@ RML.Uplayer = new function(){
 				console.log("UPlayer in not ready to togglePlay()");
 			},150);
 		}
+	};
+	this.idIsLoaded = function() {
+		return self.states.idLoaded;	
+	};
+	this.setIdLoaded = function(bool) {
+		self.states.idLoaded = bool;	
 	};
 	this.clearPlayer = function() {
 		
@@ -350,7 +368,7 @@ RML.Uplayer = new function(){
 			
 			//vars 
 			var title = self.current_item['title'],
-				id = self.current_item['videoId'],
+				id = self.current_item['id'],
 				src = self.current_item['src'],
 				$item = self.current_item['$obj'],
 				position = self.current_item['position'];
@@ -364,6 +382,7 @@ RML.Uplayer = new function(){
 //			this.container.loadPlayerWith(title, duration);
 //			this.notify(name, auth, duration);
 			this.notify(name, src, 'duration');
+			self.setIdLoaded(true);
 //			alert('source is: '+ src);
 			switch(src) {
 				case 'yt':
@@ -371,13 +390,13 @@ RML.Uplayer = new function(){
 //					DZ.player.pause();
 					sc_player.pause();
 					$('.dm-player-cont, .sc-player-cont, .deezer-player-cont').hide();
-					$('.yt-player-cont').show();
+					$('#yt_player').show();
 //					alert('id to play is; ' + id);
 					player.loadVideoById(id);
 					break;
 
 				case 'dm':
-					$('.yt-player-cont, .deezer-player-cont, .sc-player-cont').hide();
+					$('#yt_player, .deezer-player-cont, .sc-player-cont').hide();
 					player.stopVideo(); //yt stop
 //					DZ.player.pause();
 					sc_player.pause();
@@ -394,7 +413,7 @@ RML.Uplayer = new function(){
 //					D_player.pause();
 //					DZ.player.pause();
 					var url = "https%3A//api.soundcloud.com/tracks/" + id;
-					$('.dm-player-cont, .deezer-player-cont, .yt-player-cont').hide();
+					$('.dm-player-cont, .deezer-player-cont, #yt_player').hide();
 					$('.sc-player-cont').show();
 					sc_player.load(url,{
 						auto_play:true,
@@ -410,7 +429,7 @@ RML.Uplayer = new function(){
 					sc_player.pause();
 //					D_player.pause();
 
-					$('.dm-player-cont, .sc-player-cont, .yt-player-cont').hide();
+					$('.dm-player-cont, .sc-player-cont, #yt_player').hide();
 					$('.deezer-player-cont').show();
 //					DZ.player.playTracks([id]);
 					break;

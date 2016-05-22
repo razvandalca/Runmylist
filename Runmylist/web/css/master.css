@@ -367,6 +367,19 @@ footer {
 .register__input--float {
 	float: left;
 }
+
+.players {
+	float: right;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+#yt_player {
+	display: none;
+}
+#sc_player {
+	display: none;
+}
+
 .logo {
     position: fixed;
     z-index: 0;
@@ -790,3 +803,5 @@ h2 {
     color: hsla(0, 0%, 94%, .93);
     font-size: 80%;
 }
+
+
