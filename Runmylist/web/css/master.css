@@ -192,7 +192,7 @@ textarea {
     cursor: pointer;
 }
 .card-info__play-btn {
-    background-image: url(../../images/pl-play.png);
+    background-image: url(../images/pl-play.png);
     width: 20px;
     height: 30px;
     float: right;
@@ -201,7 +201,7 @@ textarea {
     cursor: pointer;
 }
 .card-info__new-btn {
-	background-image: url(../../images/pl-new.png);
+	background-image: url(../images/pl-new.png);
 	width: 25px;
     height: 25px;
     float: right;
