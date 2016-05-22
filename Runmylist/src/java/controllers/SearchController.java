@@ -15,10 +15,20 @@ import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Thumbnail;
+import java.io.BufferedReader;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +87,7 @@ public class SearchController extends HttpServlet {
                 System.out.println(" Video Id" + rId.getVideoId());
                 System.out.println(" Title: " + singleVideo.getSnippet().getTitle());
                 System.out.println(" Thumbnail: " + thumbnail.getUrl());
+                System.out.println(" URL: " +"https://www.youtube.com/watch?v="+ rId.getVideoId());
                 System.out.println("\n-------------------------------------------------------------\n");
             }
         }
@@ -85,19 +96,20 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            try (PrintWriter out = response.getWriter()) {
             // This object is used to make YouTube Data API requests. The last
             // argument is required, but since we don't need anything
             // initialized when the HttpRequest is initialized, we override
             // the interface and provide a no-op function.
             
             youtube = new YouTube.Builder(new NetHttpTransport(), JSON_FACTORY , new HttpRequestInitializer() {
+                @Override
                 public void initialize(HttpRequest request) throws IOException {
                 }
             }).setApplicationName("youtube-cmdline-search-sample").build();
 
             // Prompt the user to enter a query term.
-            String queryTerm = getInputQuery();
+            String queryTerm = request.getParameter("imputQuery");
 
             // Define the API request for retrieving search results.
             YouTube.Search.List search = youtube.search().list("id,snippet");
@@ -105,7 +117,7 @@ public class SearchController extends HttpServlet {
             // Set your developer key from the Google Developers Console for
             // non-authenticated requests. See:
             // https://console.developers.google.com/
-            String apiKey = "AIzaSyA_BacPkNMt7xnWIN6Q1h-4uZjCTByACXM";
+            String apiKey = "AIzaSyByS-IwVEMkiCuX2OXvBKdsywjR7Ls7828";
             search.setKey(apiKey);
             search.setQ(queryTerm);
 
@@ -123,10 +135,13 @@ public class SearchController extends HttpServlet {
             List<SearchResult> searchResultList = searchResponse.getItems();
             if (searchResultList != null) {
                 System.err.println(searchResponse.toString());
+                out.print(searchResponse.toString());
                 prettyPrint(searchResultList.iterator(), queryTerm);
             }
-
+            
+               }    
     }
+
 
 
     @Override
