@@ -59,7 +59,7 @@ public class PlaylistDAO {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO `playlists`(`name`, `user_id`) VALUES (?,?)");
             statement.setString(1, name);
             statement.setString(2, userID);
-           if (!listExists(name)) {
+            if (!listExists(name)) {
                 statement.execute();
                 connection.commit();
                 return true;
@@ -69,8 +69,8 @@ public class PlaylistDAO {
 
         return false;
     }
-    
-        public boolean listExists(String name) throws SQLException {
+
+    public boolean listExists(String name) throws SQLException {
         connection = DBConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlists where name = ?");
         statement.setString(1, name);
@@ -82,20 +82,19 @@ public class PlaylistDAO {
         return false;
     }
 
-            //    public ArrayList<PlaylistsItems> getPlItems(int item_id) throws SQLException {
-            //
-            //        connection = DBConnection.getConnection();
-            //        ArrayList<PlaylistsItems> plitems = new ArrayList<>();
-            //        ArrayList<Integer> ids = new ArrayList<>();
-            //        PreparedStatement statement = connection.prepareStatement("SELECT id FROM items WHERE playlist_id = " + item_id + ";");
-            //        try (ResultSet rs = statement.executeQuery()) {
-            //            while (rs.next()) {
-            //                ids.add(rs.getInt("id"));
-            //            }
-            //        }
-            //        return plitems;
-            //    }
-
+    //    public ArrayList<PlaylistsItems> getPlItems(int item_id) throws SQLException {
+    //
+    //        connection = DBConnection.getConnection();
+    //        ArrayList<PlaylistsItems> plitems = new ArrayList<>();
+    //        ArrayList<Integer> ids = new ArrayList<>();
+    //        PreparedStatement statement = connection.prepareStatement("SELECT id FROM items WHERE playlist_id = " + item_id + ";");
+    //        try (ResultSet rs = statement.executeQuery()) {
+    //            while (rs.next()) {
+    //                ids.add(rs.getInt("id"));
+    //            }
+    //        }
+    //        return plitems;
+    //    }
     public void delPl(String name) throws SQLException {
         connection = DBConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM playlists WHERE id = ?");
@@ -118,6 +117,7 @@ public class PlaylistDAO {
             return false;
         }
     }
+
     public int getId(String name) throws SQLException {
         connection = DBConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlists where name = ?");
@@ -129,32 +129,41 @@ public class PlaylistDAO {
         rs.close();
         return -1;
     }
-    
-    
-    public ArrayList<Integer> getAllPlaylistsForUser(String userID) throws SQLException{
-        connection=DBConnection.getConnection();
-        ArrayList playListIDs=new ArrayList();
-        PreparedStatement statement =connection.prepareStatement("SELECT `playlist_id` FROM `playlists` WHERE user_id = ?");
+
+    public ArrayList<Integer> getAllPlaylistsForUser(String userID) throws SQLException {
+        connection = DBConnection.getConnection();
+        ArrayList playListIDs = new ArrayList();
+        PreparedStatement statement = connection.prepareStatement("SELECT `playlist_id` FROM `playlists` WHERE user_id = ?");
         statement.setString(1, userID);
         ResultSet rs = statement.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             playListIDs.add(rs.getInt("playlist_id"));
         }
         return playListIDs;
     }
-    
-    
-        public ArrayList getAllItemsForAPlayList(String playListID) throws SQLException{
-        connection=DBConnection.getConnection();
-        ArrayList itemsIDFromPlayList=new ArrayList();
-        PreparedStatement statement =connection.prepareStatement("SELECT `item_id` FROM `playlists_items` WHERE playlist_id = ?");
+
+    public ArrayList getAllItemsForAPlayList(String playListID) throws SQLException {
+        connection = DBConnection.getConnection();
+        ArrayList itemsIDFromPlayList = new ArrayList();
+        PreparedStatement statement = connection.prepareStatement("SELECT `item_id` FROM `playlists_items` WHERE playlist_id = ?");
         statement.setString(1, playListID);
         ResultSet rs = statement.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             itemsIDFromPlayList.add(rs.getInt("item_id"));
         }
         return itemsIDFromPlayList;
     }
-    
+
+    public String getName(String id) throws SQLException {
+        connection = DBConnection.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT name FROM playlists where playlist_id = ?");
+        statement.setString(1,id);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            return rs.getString("name");
+        }
+        rs.close();
+        return"Error";
+    }
 
 }
