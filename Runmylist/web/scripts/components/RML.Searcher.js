@@ -39,12 +39,12 @@ RML.Searcber = new function(){
 			//vars
 			var item = json_array[i],
 				title = item['title'],
-				duraiton = item['duraiton'],
-				id = item['id'],
+				duration = item['duration'],
+				id = item['videoId'],
 				src_url = './images/' + item['src_type'] + '.png',
-				url = item['url'],
+				url = item['url_content'],
 				author = item['author'], //!!!
-				thumb_url = item['thumb_url'],
+				thumb_url = item['url_thumbnail'],
 				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="result-item">' +
 					'<div class="result-item__thumbnail">' +
 					'<img class="" src="' + thumb_url + '" />' +
@@ -52,7 +52,7 @@ RML.Searcber = new function(){
 					'<div class="result-item__add"></div>' +
 					'<div class="result-item__title">' + title + '</div>' +
 					'<img class="result-item__source" src="' + src_url + '" alt="yt" />' +
-					'<div class="result-item__duration">' + duraiton + '</div>' 
+					'<div class="result-item__duration">' + duration + '</div>' 
 					'</li>';
 //			console.log('item to add: \n' + item_str);
 			result_count.append($(item_str));
@@ -76,7 +76,7 @@ RML.Searcber = new function(){
 				console.log('success');
 				alert('wuhuuu');
 				console.log(rsp);
-				rsp = JSON.parse(rsp);
+				rsp = JSON.parse(rsp)['results'];
 				self.loadItemSearcbResults(rsp);
 			},
 			error: function(err) {

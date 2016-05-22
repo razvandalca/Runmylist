@@ -8,10 +8,11 @@ $(function () {
 RML.Playlist = new function() {
 	var self = this;
 	var $body = $('body');
-	
+	self.item_to_add_json = {};
 	self.states = {
-			loaded: false
-		};
+		loaded: false,
+		create_and_load: false	
+	};
 
 	this.init = function() {
 		
@@ -35,9 +36,12 @@ RML.Playlist = new function() {
 				$gray_background = $('.js-gray-background'),
 				data = {
 					title: playlist_new_name
-				};
-			
-			self.creatPlaylist(data);
+				},
+				$created_playlist = self.creatPlaylist(data);
+			if (self.states.create_and_load) {
+				self.loadPlaylist($created_playlist);
+				self.addItem(self.item_to_add_json);
+			}
 			$gray_background.click();
 			return false;
 		});
@@ -56,7 +60,11 @@ RML.Playlist = new function() {
 				$item = $(this.parentNode),
 				json_data = JSON.parse($item.attr('data-info'));
 				
-				self.addItem(json_data);
+			self.addItem(json_data);
+			if (self.states.create_and_load) {
+				self.item_to_add_json = json_data;
+			}
+			
 				
 		});
 	};
@@ -76,10 +84,10 @@ RML.Playlist = new function() {
 		}
 	}
 	this.loadPlaylist = function($playlist) {
-//		alert($playlist);
 		
 		//vars
-		var JSON_data_arr = [],
+		var $playlist_cont = $('.playlist'),
+			JSON_data_arr = [],
 			$card_info = $playlist.find('.card-info'),
 			playlist_title = $card_info.find('.card-info__title').text(),
 			playlist_song_count = $card_info.find('.card-info__song-count').text(),
@@ -101,8 +109,11 @@ RML.Playlist = new function() {
 		});
 		$play_btn.addClass('.card-info__play-btn--playing'); // change the timg to ||
 		self.setLoaded(true);
+		$playlist_cont.removeClass('playlist--folded');
+//		alert('sending data: ' + JSON.stringify(JSON_data_arr));
 		RML.Uplayer.loadPlaylist(playlist_info, JSON_data_arr);
 	}
+	
 	this.requestPlaylistName = function() {
 		
 		//vars
@@ -142,10 +153,26 @@ RML.Playlist = new function() {
 						"<div class=\"card-info__title\">" + title + "<</div>" + 
 						"<div class=\"card-info__song-count\"> 0 songs </div>" + 
 					"</div>" + 
-				"</div>";
+				"</div>",
+			$new_playlist = $(playlist_str);
 		
-		$cards_cont.append($(playlist_str));
+		$cards_cont.append($new_playlist);
+		return $new_playlist;
 		
+	};
+	this.createAndLoadPlaylist = function() {
+		
+		// vars
+		var $new_playlist = self.creatPlaylist(self.item_to_add_json);
+		
+		self.loadPlaylist($new_playlist);
+		self.addExistingItem();
+	};
+	this.addExistingItem = function() {
+		if (self.item_to_add_json != {}) {
+			self.addItem(self.item_to_add_json);
+		}
+		else console.log('error adding item !! -13');
 	};
 	this.deletePlaylist = function(data) {
 		//TODO..
@@ -187,6 +214,7 @@ RML.Playlist = new function() {
 			RML.Uplayer.refreshItems();
 		}
 		else {
+			self.states.create_and_load = true;
 			self.requestPlaylistName();
 		}
 	};
@@ -195,7 +223,6 @@ RML.Playlist = new function() {
 	}
 	this.setLoaded = function(bool) {
 		self.states.loaded = bool;
-		alert('loaded is: ' + self.states.loaded);
 	}
 	this.removeItem = function(data) {};
 	this.getDetails = function(data) {

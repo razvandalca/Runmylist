@@ -361,7 +361,7 @@ RML.Uplayer = new function(){
 //			this.container.loadPlayerWith(title, duration);
 //			this.notify(name, auth, duration);
 			this.notify(name, src, 'duration');
-			alert('source is: '+ src);
+//			alert('source is: '+ src);
 			switch(src) {
 				case 'yt':
 //					D_player.pause();
@@ -369,7 +369,7 @@ RML.Uplayer = new function(){
 					sc_player.pause();
 					$('.dm-player-cont, .sc-player-cont, .deezer-player-cont').hide();
 					$('.yt-player-cont').show();
-					alert('id to play is; ' + id);
+//					alert('id to play is; ' + id);
 					player.loadVideoById(id);
 					break;
 
