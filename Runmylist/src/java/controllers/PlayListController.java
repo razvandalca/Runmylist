@@ -22,28 +22,60 @@ import pojo.MyTrack;
  */
 public class PlayListController extends HttpServlet {
 //1 good ,0 bad
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             out.print("TEST");
-        switch(request.getParameter("type")){
-            case"addPlaylist":{
-                System.err.println("TEST");
-                if(request.getSession().getAttribute("user_session")!=null){
-                    if(addPlaylist(request.getParameter("playlistName"),String.valueOf(UserDAO.getInstance().getUserIDWithGoogleID(request.getSession().getAttribute("user_session").toString())))){
-                        out.print(1);
-                    }else{
+            switch (request.getParameter("type")) {
+                case "addPlaylist": {
+                    System.err.println("TEST");
+                    if (request.getSession().getAttribute("user_session") != null) {
+                        if (addPlaylist(request.getParameter("playlistName"), String.valueOf(UserDAO.getInstance().getUserIDWithGoogleID(request.getSession().getAttribute("user_session").toString())))) {
+                            out.print(1);
+                            break;
+                        } else {
+                            out.print(0);
+                            break;
+                        }
+                    } else {
                         out.print(0);
+                        break;
                     }
-                }else{
-                    out.print(0);
-                };
+                }
+                case "addItem": {
+                    ItemsDAO itemsDAO = ItemsDAO.getInstance();
+                    if (!itemsDAO.urlExists(request.getParameter("url_content"))) {
+                        if (itemsDAO.addItem(request.getParameter("title"), request.getParameter("url_thumbnail"), request.getParameter("src_type"), request.getParameter("author"), request.getParameter("duration"), request.getParameter("url_content"))) {
+                            if (addItemToPlaylist(itemsDAO.getItemsId(request.getParameter("url_content")), PlaylistDAO.getInstance().getId(request.getParameter("playlistName")))) {
+                                out.print(1);
+                                System.err.println(1);
+                            } else {
+                                out.print(0);
+                                System.err.println(2);
+
+                            }
+                        } else {
+                            out.print(0);
+                            System.err.println(3);
+
+                        }
+                    } else if (addItemToPlaylist(itemsDAO.getItemsId(request.getParameter("url_content")), PlaylistDAO.getInstance().getId(request.getParameter("playlistName")))) {
+                        out.print(1);
+                        System.err.println(4);
+
+                    } else {
+                        out.print(0);
+                        System.err.println(5);
+
+                    }
+
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }catch(Exception e){
-        e.printStackTrace();
-    }
 
     }
 
@@ -52,6 +84,7 @@ public class PlayListController extends HttpServlet {
             throws ServletException, IOException {
 
     }
+
     private boolean addItem(int idPlaylist, MyTrack track) {
 
         if (idPlaylist >= 1 && track != null) {
@@ -60,9 +93,9 @@ public class PlayListController extends HttpServlet {
         return false;
     }
 
-    private boolean addPlaylist(String name ,String userId) {
+    private boolean addPlaylist(String name, String userId) {
         if (name != null && !name.trim().equals("")) {
-            return PlaylistDAO.getInstance().createPlaylist(name,userId);
+            return PlaylistDAO.getInstance().createPlaylist(name, userId);
         }
         return false;
     }
@@ -74,6 +107,6 @@ public class PlayListController extends HttpServlet {
             return PlaylistDAO.getInstance().addItemToPlayList(String.valueOf(idItem), String.valueOf(idPlayList));
         }
         return false;
-        }
-
     }
+
+}

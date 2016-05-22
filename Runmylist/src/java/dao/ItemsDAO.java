@@ -35,7 +35,7 @@ public class ItemsDAO {
     public boolean addItem(String title, String th_url, String source_type, String author, String duration, String url) {
         conn = DBConnection.getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("insert into items (`title`, `thumbnail_url`, `source_type`,  `author`, `duration`,`url`) values (?,?,?,?,?,?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `items`( `title`, `thumbnail_url`, `source_type`, `author`, `duration`, `url`) VALUES(?,?,?,?,?,?)");
             statement.setString(1, title);
             statement.setString(2, th_url);
             statement.setString(3, source_type);
@@ -65,13 +65,13 @@ public class ItemsDAO {
         return false;
     }
 
-    public int getItemsId(String title) throws SQLException {
+    public int getItemsId(String URL) throws SQLException {
         conn = DBConnection.getConnection();
-        PreparedStatement statement = conn.prepareStatement("SELECT * FROM items where title = ?");
-        statement.setString(1, title);
+        PreparedStatement statement = conn.prepareStatement("SELECT * FROM items where url = ?");
+        statement.setString(1, URL);
         ResultSet rs = statement.executeQuery();
         if (rs.next()) {
-            return rs.getInt("id");
+            return rs.getInt("item_id");
         }
         rs.close();
         return -1;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2016 at 06:48 PM
+-- Generation Time: May 22, 2016 at 06:20 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.19
 
@@ -30,11 +30,18 @@ CREATE TABLE `items` (
   `item_id` int(11) NOT NULL,
   `title` text NOT NULL,
   `thumbnail_url` text NOT NULL,
-  `source_type` enum('youtube','soundcloud','dailymotion') NOT NULL,
-  `author` int(11) DEFAULT NULL,
-  `duration` varchar(10) NOT NULL,
-  `url` int(11) NOT NULL
+  `source_type` varchar(3) NOT NULL,
+  `author` text,
+  `duration` text NOT NULL,
+  `url` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`item_id`, `title`, `thumbnail_url`, `source_type`, `author`, `duration`, `url`) VALUES
+(3, 'eminem_song', 'http_url', 'yt', 'vevo', '233', 'http_test');
 
 -- --------------------------------------------------------
 
@@ -44,17 +51,16 @@ CREATE TABLE `items` (
 
 CREATE TABLE `playlists` (
   `playlist_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `active` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `name` varchar(30) NOT NULL,
+  `user_id` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `playlists`
 --
 
-INSERT INTO `playlists` (`playlist_id`, `name`, `active`, `user_id`) VALUES
-(1, 'hello', 1, 1);
+INSERT INTO `playlists` (`playlist_id`, `name`, `user_id`) VALUES
+(1, 'demoName', '12');
 
 -- --------------------------------------------------------
 
@@ -64,10 +70,16 @@ INSERT INTO `playlists` (`playlist_id`, `name`, `active`, `user_id`) VALUES
 
 CREATE TABLE `playlists_items` (
   `id` int(11) NOT NULL,
-  `playlist_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `ordering` int(11) NOT NULL
+  `playlist_id` varchar(30) NOT NULL,
+  `item_id` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlists_items`
+--
+
+INSERT INTO `playlists_items` (`id`, `playlist_id`, `item_id`) VALUES
+(2, '1', '3');
 
 -- --------------------------------------------------------
 
@@ -86,17 +98,16 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `users_playlists`
+-- Dumping data for table `users`
 --
 
-CREATE TABLE `users_playlists` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `playlist_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `users` (`user_id`, `username`, `password`, `creation_date`, `firstname`, `lastname`, `google_id`, `email`) VALUES
+(8, '', 'b28e140b49046d7f66ff1e675f9aaed6e0cc76cb', '2016-05-22', 'DalcaR', 'DalcaR', NULL, 'razvan.dacla@gmauil.com'),
+(9, '', 'b28e140b49046d7f66ff1e675f9aaed6e0cc76cb', '2016-05-22', 'DalcaR', 'DalcaR', NULL, 'razvan.dacla@gmauil.com'),
+(10, '', 'b28e140b49046d7f66ff1e675f9aaed6e0cc76cb', '2016-05-22', 'DalcaR', 'DalcaR', NULL, 'razvan.dacla@gmauil.com'),
+(11, '', 'b28e140b49046d7f66ff1e675f9aaed6e0cc76cb', '2016-05-22', 'TEAYFUN', 'TAYFUN', NULL, 'adsgeasdggsg'),
+(12, '', '', '2016-05-22', 'Razvan', 'Dalca', 'e0c11d9cf640b8d3697e6044534d11b817db9ad7', 'dalca.razvan@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -113,8 +124,7 @@ ALTER TABLE `items`
 -- Indexes for table `playlists`
 --
 ALTER TABLE `playlists`
-  ADD PRIMARY KEY (`playlist_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`playlist_id`);
 
 --
 -- Indexes for table `playlists_items`
@@ -128,16 +138,7 @@ ALTER TABLE `playlists_items`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- Indexes for table `users_playlists`
---
-ALTER TABLE `users_playlists`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `item_id` (`playlist_id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -147,7 +148,7 @@ ALTER TABLE `users_playlists`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `playlists`
 --
@@ -157,33 +158,12 @@ ALTER TABLE `playlists`
 -- AUTO_INCREMENT for table `playlists_items`
 --
 ALTER TABLE `playlists_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `users_playlists`
---
-ALTER TABLE `users_playlists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `playlists_items`
---
-ALTER TABLE `playlists_items`
-  ADD CONSTRAINT `playlists_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
-
---
--- Constraints for table `users_playlists`
---
-ALTER TABLE `users_playlists`
-  ADD CONSTRAINT `users_playlists_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON UPDATE CASCADE;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
