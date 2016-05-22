@@ -285,8 +285,10 @@ RML.Uplayer = new function(){
 			$playlist_items_cont_ul.append($(item_str));
 		}
 		self.refreshItems();
-		self.current_item = self.items[0];	
-		this.playVideo();
+		if (json_size != 0) {
+			self.current_item = self.items[0];	
+			this.playVideo();
+		}
 	}; // loads a PL with a name and auth
 	this.STOP = function() {
 		if (self.isReady()) {

@@ -8,6 +8,10 @@ $(function () {
 RML.Playlist = new function() {
 	var self = this;
 	var $body = $('body');
+	
+	self.states = {
+			loaded: false
+		};
 
 	this.init = function() {
 		
@@ -50,6 +54,9 @@ RML.Playlist = new function() {
 			//vars
 			var $this = $(this),
 				$item = $(this.parentNode),
+				json_data = JSON.parse($item.attr('data-info'));
+				
+				self.addItem(json_data);
 				
 		});
 	};
@@ -69,8 +76,8 @@ RML.Playlist = new function() {
 		}
 	}
 	this.loadPlaylist = function($playlist) {
-				alert($playlist);
-
+//		alert($playlist);
+		
 		//vars
 		var JSON_data_arr = [],
 			$card_info = $playlist.find('.card-info'),
@@ -93,6 +100,7 @@ RML.Playlist = new function() {
 			JSON_data_arr.push(JSON_data);
 		});
 		$play_btn.addClass('.card-info__play-btn--playing'); // change the timg to ||
+		self.setLoaded(true);
 		RML.Uplayer.loadPlaylist(playlist_info, JSON_data_arr);
 	}
 	this.requestPlaylistName = function() {
@@ -151,7 +159,44 @@ RML.Playlist = new function() {
 	this.changeItemOrder = function(data) {
 		//todo..
 	};
-	this.addItem = function(data) {};
+	this.addItem = function(JSON_data) {
+		if (self.isLoaded()) {
+			
+			//vars
+			var $playlist = $('.playlist'),
+//				$player = $playlist.find('.player'),
+				$playlist_items_cont = $playlist.find('.playlist-items'),
+				$playlist_items_cont_ul = $playlist_items_cont.find('ul'),
+				title = JSON_data['title'],
+				duraiton = JSON_data['duraiton'],
+				id = JSON_data['id'],
+				src_url = './images/' + JSON_data['src_type'] + '.png',
+				url = JSON_data['url'],
+				author = JSON_data['author'], //!!!
+				thumb_url = JSON_data['thumb_url'],
+				item_str = '<li data-info=\'' + JSON.stringify(JSON_data) + '\' class="playlist-item">'+
+				'<div class="playlist-item__thumbnail"><img class="" src="' + thumb_url + '" /></div>'+
+				'<div class="playlist-item__delete"></div> '+
+				'<div class="playlist-item__title">' + title + '</div>'+
+				'<img class="playlist-item__source" src="' + src_url + '" />'+
+				'<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
+				'</li>';
+			
+			//add each item information to the big array
+			$playlist_items_cont_ul.append($(item_str));
+			RML.Uplayer.refreshItems();
+		}
+		else {
+			self.requestPlaylistName();
+		}
+	};
+	this.isLoaded = function() {
+		return self.states.loaded;
+	}
+	this.setLoaded = function(bool) {
+		self.states.loaded = bool;
+		alert('loaded is: ' + self.states.loaded);
+	}
 	this.removeItem = function(data) {};
 	this.getDetails = function(data) {
 		//return JSON: {name :"test", items: 20, totalDuration: 12:14....}
