@@ -27,10 +27,8 @@ public class PlayListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            out.print("TEST");
             switch (request.getParameter("type")) {
                 case "addPlaylist": {
-                    System.err.println("TEST");
                     if (request.getSession().getAttribute("user_session") != null) {
                         if (addPlaylist(request.getParameter("playlistName"), String.valueOf(UserDAO.getInstance().getUserIDWithGoogleID(request.getSession().getAttribute("user_session").toString())))) {
                             out.print(1);
@@ -47,27 +45,19 @@ public class PlayListController extends HttpServlet {
                 case "addItem": {
                     ItemsDAO itemsDAO = ItemsDAO.getInstance();
                     if (!itemsDAO.urlExists(request.getParameter("url_content"))) {
-                        if (itemsDAO.addItem(request.getParameter("title"), request.getParameter("url_thumbnail"), request.getParameter("src_type"), request.getParameter("author"), request.getParameter("duration"), request.getParameter("url_content"))) {
+                        if (itemsDAO.addItem(request.getParameter("title"), request.getParameter("url_thumbnail"), request.getParameter("src_type"), request.getParameter("author"), request.getParameter("duration"), request.getParameter("url_content"),request.getParameter("videoID"))) {
                             if (addItemToPlaylist(itemsDAO.getItemsId(request.getParameter("url_content")), PlaylistDAO.getInstance().getId(request.getParameter("playlistName")))) {
                                 out.print(1);
-                                System.err.println(1);
                             } else {
                                 out.print(0);
-                                System.err.println(2);
-
                             }
                         } else {
                             out.print(0);
-                            System.err.println(3);
-
                         }
                     } else if (addItemToPlaylist(itemsDAO.getItemsId(request.getParameter("url_content")), PlaylistDAO.getInstance().getId(request.getParameter("playlistName")))) {
                         out.print(1);
-                        System.err.println(4);
-
                     } else {
                         out.print(0);
-                        System.err.println(5);
 
                     }
 
@@ -88,7 +78,7 @@ public class PlayListController extends HttpServlet {
     private boolean addItem(int idPlaylist, MyTrack track) {
 
         if (idPlaylist >= 1 && track != null) {
-            return ItemsDAO.getInstance().addItem(track.getTitle(), track.getUrlThumbnail(), track.getSrcType(), track.getAuthor(), track.getDuration(), track.getUrlContent());
+            return ItemsDAO.getInstance().addItem(track.getTitle(), track.getUrlThumbnail(), track.getSrcType(), track.getAuthor(), track.getDuration(), track.getUrlContent(),track.getVideoID());
         }
         return false;
     }

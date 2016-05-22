@@ -33,10 +33,6 @@ public class MyTrack {
     public MyTrack() {
     }
 
-    public MyTrack(String string, String string0, String string1, String string2, String string3, String string4) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 
     public String getAuthor() {
         return author;
@@ -96,7 +92,7 @@ public class MyTrack {
 
     @Override
     public String toString() {
-        return "MyTrack{" + "author=" + author + ", title=" + title + ", duration=" + duration + ", id=" + videoID + ", srcType=" + srcType + ", urlContent=" + urlContent + ", urlThumbnail=" + urlThumbnail + '}';
+        return "MyTrack{" + "author=" + author + ", title=" + title + ", duration=" + duration + ", Videoid=" + videoID + ", srcType=" + srcType + ", urlContent=" + urlContent + ", urlThumbnail=" + urlThumbnail + '}';
     }
 
     

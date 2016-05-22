@@ -129,5 +129,32 @@ public class PlaylistDAO {
         rs.close();
         return -1;
     }
+    
+    
+    public ArrayList<Integer> getAllPlaylistsForUser(String userID) throws SQLException{
+        connection=DBConnection.getConnection();
+        ArrayList playListIDs=new ArrayList();
+        PreparedStatement statement =connection.prepareStatement("SELECT `playlist_id` FROM `playlists` WHERE user_id = ?");
+        statement.setString(1, userID);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()){
+            playListIDs.add(rs.getInt("playlist_id"));
+        }
+        return playListIDs;
+    }
+    
+    
+        public ArrayList getAllItemsForAPlayList(String playListID) throws SQLException{
+        connection=DBConnection.getConnection();
+        ArrayList itemsIDFromPlayList=new ArrayList();
+        PreparedStatement statement =connection.prepareStatement("SELECT `item_id` FROM `playlists_items` WHERE playlist_id = ?");
+        statement.setString(1, playListID);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()){
+            itemsIDFromPlayList.add(rs.getInt("item_id"));
+        }
+        return itemsIDFromPlayList;
+    }
+    
 
 }
