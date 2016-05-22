@@ -227,11 +227,11 @@ RML.Uplayer = new function(){
 				item = JSON.parse($this.attr('data-info')),
 				title = item['title'],
 				duraiton = item['duraiton'],
-				id = item['id'],
+				id = item['videoId'],
 				src_type =item['src_type'],
-				url = item['url'],
+				url_content = item['url_content'],
 				author = item['author'], //!!!
-				thumb_url = item['thumb_url'];
+				url_thumbnail = item['url_thumbnail'];
 
 			self.items[i] = {
 				$obj: $this,
@@ -269,13 +269,13 @@ RML.Uplayer = new function(){
 			var item = JSON_data_arr[i],
 				title = item['title'],
 				duraiton = item['duraiton'],
-				id = item['id'],
+				id = item['videoId'],
 				src_url = './images/' + item['src_type'] + '.png',
-				url = item['url'],
+				url_content = item['url_content'],
 				author = item['author'], //!!!
-				thumb_url = item['thumb_url'],
+				url_thumbnail = item['url_thumbnail'],
 				item_str = '<li data-info=\'' + JSON.stringify(item) + '\' class="playlist-item">'+
-				'<div class="playlist-item__thumbnail"><img class="" src="' + thumb_url + '" /></div>'+
+				'<div class="playlist-item__thumbnail"><img class="" src="' + url_thumbnail + '" /></div>'+
 				'<div class="playlist-item__delete"></div> '+
 				'<div class="playlist-item__title">' + title + '</div>'+
 				'<img class="playlist-item__source" src="' + src_url + '" />'+
@@ -347,7 +347,7 @@ RML.Uplayer = new function(){
 			
 			//vars 
 			var title = self.current_item['title'],
-				id = self.current_item['id'],
+				id = self.current_item['videoId'],
 				src = self.current_item['src'],
 				$item = self.current_item['$obj'],
 				position = self.current_item['position'];

@@ -196,13 +196,13 @@ RML.Playlist = new function() {
 				$playlist_items_cont_ul = $playlist_items_cont.find('ul'),
 				title = JSON_data['title'],
 				duraiton = JSON_data['duraiton'],
-				id = JSON_data['id'],
+				id = JSON_data['videoId'],
 				src_url = './images/' + JSON_data['src_type'] + '.png',
-				url = JSON_data['url'],
+				url_content = JSON_data['url_content'],
 				author = JSON_data['author'], //!!!
-				thumb_url = JSON_data['thumb_url'],
+				url_thumbnail = JSON_data['url_thumbnail'],
 				item_str = '<li data-info=\'' + JSON.stringify(JSON_data) + '\' class="playlist-item">'+
-				'<div class="playlist-item__thumbnail"><img class="" src="' + thumb_url + '" /></div>'+
+				'<div class="playlist-item__thumbnail"><img class="" src="' + url_thumbnail + '" /></div>'+
 				'<div class="playlist-item__delete"></div> '+
 				'<div class="playlist-item__title">' + title + '</div>'+
 				'<img class="playlist-item__source" src="' + src_url + '" />'+
