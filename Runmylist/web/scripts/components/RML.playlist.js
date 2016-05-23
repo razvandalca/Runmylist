@@ -173,6 +173,10 @@ RML.Playlist = new function() {
 	};
 	this.creatPlaylist = function(data) {
 		
+                //debug
+                console.log('createPlyliat() call:');
+                console.log(data)
+                
 		//vars
 		var $cards_cont = $('.js-cards-container'),
 			title = data['name'],
@@ -197,10 +201,17 @@ RML.Playlist = new function() {
 		
 		for(var i = 0; i < items_count; i++) {
 			
+                        //debug
+                        alert(items_arr[i]);
+                       // alert(JSON.parse(items_arr[i]));
+                        alert(JSON.stringify(items_arr[i]));
+                        console.log(items_arr[i]);
+                        //console.log(JSON.parse(items_arr[i]));
+                        console.log(JSON.stringify(items_arr[i]));
 			//vars
 			var item = items_arr[i],
 				title = item['title'],
-				item_str ='<li data-info="' + JSON.stringify(item) + '" class="card-items__item" >' + title + '</li>';
+				item_str ='<li data-info=\'' + JSON.stringify(item) + '\' class="card-items__item" >' + title + '</li>';
 				
 			playlist_str += item_str;
 		}
@@ -216,6 +227,7 @@ RML.Playlist = new function() {
 					'</div>' + 
 				'</div>';
 		alert(playlist_str);
+                console.log(playlist_str);
 		var $imported_playlist = $(playlist_str);
 		
 		$cards_cont.append($imported_playlist);
@@ -228,6 +240,7 @@ RML.Playlist = new function() {
 			success: function(rsp) {
 				console.log('success:' );
 				console.log(rsp);
+                                //console.log(JSON.stringify(JSON.parse(rsp)));
 				self.loadAllPlaylists(JSON.parse(rsp));
 			},
 			error: function(err) {
@@ -238,9 +251,12 @@ RML.Playlist = new function() {
 	};
 	this.loadAllPlaylists = function(JSON_data) {
 		
+                //debug
+                console.log( JSON_data['result'].length)
+                
 		//vars
 		var json_arr = JSON_data['result'],
-			json_count = json_arr.length;
+                    	json_count = json_arr.length;
 		
 		for (var i = 0; i < json_count; i++) {
 			self.creatPlaylist(json_arr[i]);

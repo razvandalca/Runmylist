@@ -114,20 +114,25 @@ public class PlaylistDAO {
             return true;
 
         } catch (SQLException ex) {
+            System.err.println(ex);
             return false;
         }
     }
 
     public int getId(String name) throws SQLException {
         connection = DBConnection.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlists where name = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT `playlist_id` FROM `playlists` WHERE name = ?");
         statement.setString(1, name);
         ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            return rs.getInt("playlist_id");
-        }
-        rs.close();
-        return -1;
+//        if (rs.next()) {
+        System.err.println(rs.getInt(name));
+
+        System.err.println(rs.getInt("playlist_id"));
+             rs.getInt("playlist_id");
+            return-1;
+//        }
+//        rs.close();
+//        return -1;
     }
 
     public ArrayList<Integer> getAllPlaylistsForUser(String userID) throws SQLException {

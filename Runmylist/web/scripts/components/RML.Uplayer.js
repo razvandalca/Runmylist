@@ -300,6 +300,9 @@ RML.Uplayer = new function(){
 		self.current_item = self.items[position];
 	}
 	this.setPlaylistName = function(name) {
+            
+            var $playlist_title = $('.playlist').find('.player__title');
+            
 		$playlist_title.text(name);
 		self.playlistName = name;
 	}

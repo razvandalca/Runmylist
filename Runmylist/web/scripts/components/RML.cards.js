@@ -14,7 +14,7 @@ RML.Cards = new function(){
 		
 
 		//events listeners go here
-		$(".card-info__title, .card-info__song-count").click(function() {
+		$(document).on('click', ".card-info__title, .card-info__song-count", function() {
             $(this).closest(".card-container").toggleClass("flip"); 
         })
 
