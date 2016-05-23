@@ -255,7 +255,6 @@ RML.Uplayer = new function(){
 		var $playlist = $('.playlist'),
 			$player = $playlist.find('.player'),
 			$playlist_items_cont = $playlist.find('.playlist-items').find('ul');
-		
 		$playlist_items_cont.empty();
 		
 		this.STOP();
