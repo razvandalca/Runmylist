@@ -51,8 +51,12 @@ RML.Account = new function(){
 					method: "post",
 					success: function(rsp) {
 						console.log(rsp);
+						alert("Registeration successful");
+						$('.js-grey-background').click();
+						$('.js-login-register__login-show').click();
 					},
 					error: function(err) {
+						alert("Registeration error");
 						console.log("error ajax on registeration: ");
 						console.log(err);
 					}
@@ -155,10 +159,11 @@ RML.Account = new function(){
 			data: 'session=logout',
 			method: 'get',
 			success: function(rsp) {
-                            console.log(rsp);
+				console.log(rsp);
 				if (rsp == "1") {
 					self.setLogged(false);
 					self.handleUserloginStatus();
+					RML.UPlayerContainer.clearPlayer();
 				}
 				else {
 					console.log('response' + rsp);
