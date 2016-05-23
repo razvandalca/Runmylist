@@ -296,7 +296,7 @@ RML.Playlist = new function() {
                 $playlist_items_cont = $playlist.find('.playlist-items'),
                 $playlist_items_cont_ul = $playlist_items_cont.find('ul'),
                 title = JSON_data['title'],
-                duraiton = JSON_data['duraiton'],
+                duration = JSON_data['duration'],
                 id = JSON_data['videoId'],
                 src_url = './images/' + JSON_data['src_type'] + '.png',
                 src_type = JSON_data['src_type'],
@@ -315,7 +315,7 @@ RML.Playlist = new function() {
                if (RML.Account.isLogged()) {
 
 			//temp !!!
-			var request = "url_content=" + url_content + "&title=" + title + "&url_thumbnail=" + url_thumbnail + "&src_type=" + src_type + "&author=" + author + "&duration=" + duraiton + "&type=addItem&playlistName=" + playlist_name  + "&video_id=" +id ;
+			var request = "url_content=" + url_content + "&title=" + title + "&url_thumbnail=" + url_thumbnail + "&src_type=" + src_type + "&author=" + author + "&duration=" + duration + "&type=addItem&playlistName=" + playlist_name  + "&videoID=" +id ;
 			$.ajax({
 				url: 'PlayListController',
 				mehtod: "get",
