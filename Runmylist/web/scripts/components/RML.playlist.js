@@ -255,11 +255,14 @@ RML.Playlist = new function() {
 //                console.log( JSON_data['result'].length)
                 
 		//vars
-		var json_arr = JSON_data['result'],
-                    	json_count = json_arr.length ? json_arr.length : 0 ;
-		
-		for (var i = 0; i < json_count; i++) {
-			self.creatPlaylist(json_arr[i]);
+		if (RML.Account.isLogged()) {
+			
+			var json_arr = JSON_data['result'],
+				json_count = json_arr.length ? json_arr.length : 0 ;
+
+			for (var i = 0; i < json_count; i++) {
+				self.creatPlaylist(json_arr[i]);
+			}
 		}
 	};
 	this.createAndLoadPlaylist = function() {
