@@ -67,7 +67,7 @@ RML.Playlist = new function() {
 				
 		});
 		
-		self.getAllPlaylists();
+		
 	};
 
 	// function for renaming a playlist
@@ -111,7 +111,7 @@ RML.Playlist = new function() {
 		$play_btn.addClass('.card-info__play-btn--playing'); // change the timg to ||
 		self.setLoaded(true);
 		$playlist_cont.removeClass('playlist--folded');
-//		alert('sending data: ' + JSON.stringify(JSON_data_arr));
+//		console.log('sending data: ' + JSON.stringify(JSON_data_arr));
 		RML.Uplayer.loadPlaylist(playlist_info, JSON_data_arr);
 	}
 	
@@ -202,9 +202,9 @@ RML.Playlist = new function() {
 		for(var i = 0; i < items_count; i++) {
 			
                         //debug
-                        alert(items_arr[i]);
-                       // alert(JSON.parse(items_arr[i]));
-                        alert(JSON.stringify(items_arr[i]));
+                        console.log(items_arr[i]);
+                       // console.log(JSON.parse(items_arr[i]));
+                        console.log(JSON.stringify(items_arr[i]));
                         console.log(items_arr[i]);
                         //console.log(JSON.parse(items_arr[i]));
                         console.log(JSON.stringify(items_arr[i]));
@@ -226,7 +226,7 @@ RML.Playlist = new function() {
 						'<div class="card-info__song-count"> 0 songs </div>' + 
 					'</div>' + 
 				'</div>';
-		alert(playlist_str);
+		console.log(playlist_str);
                 console.log(playlist_str);
 		var $imported_playlist = $(playlist_str);
 		
@@ -302,7 +302,7 @@ RML.Playlist = new function() {
                 src_type = JSON_data['src_type'],
                 url_content = JSON_data['url_content'],
                 author = JSON_data['author'], //!!!
-                playlist_name = RML.Uplayer.getPlaylistName();
+                playlist_name = RML.Uplayer.getPlaylistName(),
                 url_thumbnail = JSON_data['url_thumbnail'],
                 item_str = '<li data-info=\'' + JSON.stringify(JSON_data) + '\' class="playlist-item">'+
                 '<div class="playlist-item__thumbnail"><img class="" src="' + url_thumbnail + '" /></div>'+
@@ -311,6 +311,7 @@ RML.Playlist = new function() {
                 '<img class="playlist-item__source" src="' + src_url + '" />'+
                 '<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
                 '</li>';
+		
                if (RML.Account.isLogged()) {
 
 			//temp !!!
@@ -320,10 +321,10 @@ RML.Playlist = new function() {
 				mehtod: "get",
 				data: request,
 				success: function(rsp) {
-					alert('succes:' + rsp);
+					console.log('succes:' + rsp);
 				},
 				error: function(err) {
-					alert("there is an error adding the playloist");
+					console.log("there is an error adding the playloist");
 				}
 			});
 		}

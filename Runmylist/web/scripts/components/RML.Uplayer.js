@@ -301,14 +301,14 @@ RML.Uplayer = new function(){
 	}
 	this.setPlaylistName = function(name) {
             
-            var $playlist_title = $('.playlist').find('.player__title');
-            
+		var $playlist_title = $('.playlist').find('.player__title');
 		$playlist_title.text(name);
 		self.playlistName = name;
 	}
 	this.getPlaylistName = function() {
-		return self.playlistName = name;
+		return self.playlistName;
 	}
+	
 	this.loadPlaylist = function(playlist_info, JSON_data_arr) {
 		
 		//debug
@@ -385,7 +385,7 @@ RML.Uplayer = new function(){
 			var random_integer = -5;
 			do {
 				random_integer = Math.floor(Math.random() * IDs.length);
-				//alert(random_integer);
+				//console.log(random_integer);
 			} while(random_integer == l);
 			return random_integer;
 		}
@@ -431,7 +431,7 @@ RML.Uplayer = new function(){
 //			this.container.loadPlayerWith(title, duration);
 			this.notify(name, src, duration);
 			self.setIdLoaded(true);
-//			alert('source is: '+ src);
+//			console.log('source is: '+ src);
 			switch(src) {
 				case 'yt':
 //					D_player.pause();
@@ -439,7 +439,7 @@ RML.Uplayer = new function(){
 					sc_player.pause();
 					$('.dm-player-cont, .sc-player-cont, .deezer-player-cont').hide();
 					$('#yt_player').show();
-//					alert('id to play is; ' + id);
+//					console.log('id to play is; ' + id);
 					player.loadVideoById(id);
 					break;
 
@@ -691,7 +691,7 @@ function onPlayerStateChange(event) {
 		}
 		else {
 			if (!RML.Uplayer.isFinalItem()) {
-//				alert('final item: ' + RML.Uplayer.isFinalItem());
+//				console.log('final item: ' + RML.Uplayer.isFinalItem());
 				RML.Uplayer.playNextItem();
 			}
 			else {

@@ -46,11 +46,11 @@ RML.Account = new function(){
 				var params = $(this).serialize() + "&login_type=default";
 				console.log('parameters to send for regestration: \n' + params);
 				$.ajax({
-					url: 'http://localhost:8080/Runmylist/RegisterController',
+					url: 'RegisterController',
 					data: params,
 					method: "post",
 					success: function(rsp) {
-						alert(rsp);
+						console.log(rsp);
 					},
 					error: function(err) {
 						console.log("error ajax on registeration: ");
@@ -70,11 +70,11 @@ RML.Account = new function(){
 			self.username = name;
 			console.log('parameters to send for regestration: \n' + params);
 			$.ajax({
-				url: 'http://localhost:8080/Runmylist/LoginController',
+				url: 'LoginController',
 				data: params,
 				method: "post",
 				success: function(rsp) {
-					alert(rsp);	
+					console.log(rsp);	
 				},
 				error: function(err) {
 					console.log("error ajax on registeration: ");
@@ -101,7 +101,7 @@ RML.Account = new function(){
 			$login_form.removeClass('visible');
 		});
 	
-		self.handleUserloginStatus();
+//		self.handleUserloginStatus();
 		//other methods for login go here...
 	};
 	
@@ -119,17 +119,19 @@ RML.Account = new function(){
 			$logout.addClass('visible');
 			$login.removeClass('visible');
 			$logout_name.text(self.username);
-			
+			RML.Account.getAllPlaylists();
 		}
 		else {
 			
-			//vars
+			vars
 		
-         //               var $playlists_cont = $('div .card-container:not(:first-child)').remove();
+         var $playlists_cont = $('div .card-container:not(:first-child)').remove();
 
 			$logout.removeClass('visible');
 			$login.addClass('visible');
 			$logout_name.text('');
+			RML.Account.getAllPlaylists();
+
 		}
 	};
 	
@@ -140,7 +142,7 @@ RML.Account = new function(){
 			data: params,
 			method: "post",
 			success: function(rsp) {
-				alert(rsp);
+				console.log(rsp);
 			},
 			error: function(err) {
 				console.log("error ajax on registeration: ");
@@ -154,7 +156,7 @@ RML.Account = new function(){
 			data: 'session=logout',
 			method: 'get',
 			success: function(rsp) {
-                            alert(rsp);
+                            console.log(rsp);
 				if (rsp == "1") {
 					self.setLogged(false);
 					self.handleUserloginStatus();

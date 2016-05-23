@@ -74,7 +74,7 @@ RML.Searcber = new function(){
 			method: 'get',
 			success: function(rsp) {
 				console.log('success');
-				alert('wuhuuu');
+				console.log('wuhuuu');
 				console.log(rsp);
 				rsp = JSON.parse(rsp)['results'];
 				self.loadItemSearcbResults(rsp);
