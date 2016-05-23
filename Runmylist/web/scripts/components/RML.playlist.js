@@ -252,11 +252,11 @@ RML.Playlist = new function() {
 	this.loadAllPlaylists = function(JSON_data) {
 		
                 //debug
-                console.log( JSON_data['result'].length)
+//                console.log( JSON_data['result'].length)
                 
 		//vars
 		var json_arr = JSON_data['result'],
-                    	json_count = json_arr.length;
+                    	json_count = json_arr.length ? json_arr.length : 0 ;
 		
 		for (var i = 0; i < json_count; i++) {
 			self.creatPlaylist(json_arr[i]);

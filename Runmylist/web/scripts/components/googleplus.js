@@ -23,6 +23,7 @@ function onSuccess(googleUser) {
 			console.log("login success:" + rsp);
 			RML.Account.setLogged(true);
 			RML.Account.handleUserloginStatus();
+			$('.js-gray-background').click();
 		},
 		error: function(err) {
 			console.log("error ajax on google login: ");
