@@ -179,7 +179,7 @@ RML.Playlist = new function() {
                 
 		//vars
 		var $cards_cont = $('.js-cards-container'),
-			title = data['name'],
+			playlist_title = data['name'],
 			items_arr = data['items'],
 			items_count = items_arr.length,
                         playlist_thumbnail = 'haha',
@@ -196,7 +196,7 @@ RML.Playlist = new function() {
 								'<img src="' + playlist_thumbnail + '" alt="img" />' + 
 							'</div>' + 
 							'<div class="card-items">' + 
-								'<p class="card-items__header" >' + title + '</p>' + 
+								'<p class="card-items__header" >' + playlist_title + '</p>' + 
 								'<ul>';
 		
 		for(var i = 0; i < items_count; i++) {
@@ -309,11 +309,12 @@ RML.Playlist = new function() {
                 '<div class="playlist-item__delete"></div> '+
                 '<div class="playlist-item__title">' + title + '</div>'+
                 '<img class="playlist-item__source" src="' + src_url + '" />'+
-                '<div class="playlist-item__duration"> ' + duraiton + ' </div>'+
+                '<div class="playlist-item__duration"> ' + duration + ' </div>'+
                 '</li>';
 		
                if (RML.Account.isLogged()) {
-
+				   
+				   
 			//temp !!!
 			var request = "url_content=" + url_content + "&title=" + title + "&url_thumbnail=" + url_thumbnail + "&src_type=" + src_type + "&author=" + author + "&duration=" + duration + "&type=addItem&playlistName=" + playlist_name  + "&videoID=" +id ;
 			$.ajax({
@@ -322,6 +323,7 @@ RML.Playlist = new function() {
 				data: request,
 				success: function(rsp) {
 					console.log('succes:' + rsp);
+					RML.Account.handleUserloginStatus();
 				},
 				error: function(err) {
 					console.log("there is an error adding the playloist");
