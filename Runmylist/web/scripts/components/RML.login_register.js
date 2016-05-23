@@ -119,18 +119,17 @@ RML.Account = new function(){
 			$logout.addClass('visible');
 			$login.removeClass('visible');
 			$logout_name.text(self.username);
-			RML.Account.getAllPlaylists();
+			RML.Playlist.getAllPlaylists();
 		}
 		else {
 			
-			vars
 		
          var $playlists_cont = $('div .card-container:not(:first-child)').remove();
 
 			$logout.removeClass('visible');
 			$login.addClass('visible');
 			$logout_name.text('');
-			RML.Account.getAllPlaylists();
+			RML.Playlist.getAllPlaylists();
 
 		}
 	};
