@@ -151,7 +151,7 @@ RML.Playlist = new function() {
 					'</div>' + 
 					'<div class=\"card-info\">' + 
 						'<div class=\"card-info__play-btn\"></div>' + 
-						'<div class=\"card-info__title\">" + title + "</div>' + 
+						'<div class=\"card-info__title\">' + title + '</div>' + 
 						'<div class=\"card-info__song-count\"> 0 songs </div>' + 
 					'</div>' + 
 				'</div>',
@@ -222,8 +222,8 @@ RML.Playlist = new function() {
 					'</div>' + 
 					'<div class="card-info">' + 
 						'<div class="card-info__play-btn"></div>' + 
-						'<div class="card-info__title">' + title + '<</div>' + 
-						'<div class="card-info__song-count"> 0 songs </div>' + 
+						'<div class="card-info__title">' + title + '</div>' + 
+						'<div class="card-info__song-count">' + items_count + ' songs </div>' + 
 					'</div>' + 
 				'</div>';
 		console.log(playlist_str);
