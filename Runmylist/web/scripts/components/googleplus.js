@@ -1,9 +1,9 @@
 function onSuccess(googleUser) {
 	console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
 	//	 login(googleUser);
+	RML.Account.username = googleUser.getBasicProfile().getName();
 	if (RML.Account.isLogged()) {
         RML.Account.handleUserloginStatus();
-        RML.Account.username = googleUser.getBasicProfile().getName();
 	 	return;
 	}
 	var profile = googleUser.getBasicProfile();

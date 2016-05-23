@@ -715,10 +715,20 @@ sc_player.bind('ready',function(){
 
 });
 sc_player.bind('finish',function(){
-	if(loc === IDs.length - 1 && $("#rep_all").hasClass('repeat_all_no')) {
-		return;
-	}
-	loc = RML.Uplayer.nextLoc(loc);
+	
+		if(RML.Uplayer.isSongRepeat()) {
+			RML.Uplayer.playVideo();
+		}
+		else {
+			if (!RML.Uplayer.isFinalItem()) {
+//				console.log('final item: ' + RML.Uplayer.isFinalItem());
+				RML.Uplayer.playNextItem();
+			}
+			else {
+				if (RML.Uplayer.isPlaylistRepeat())
+					RML.Uplayer.playNextItem();
+			}
+		}
 //	RML.Uplayer.playItem(IDs[loc][0],IDs[loc][1]);
 });
 sc_player.bind('play',function(){

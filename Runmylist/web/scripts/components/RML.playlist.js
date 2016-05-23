@@ -182,8 +182,8 @@ RML.Playlist = new function() {
 			playlist_title = data['name'],
 			items_arr = data['items'],
 			items_count = items_arr.length,
-                        playlist_thumbnail = 'haha',
-                       // playlist_thumbnail = items_arr[0]['url_thumbnail'],
+//			playlist_thumbnail = 'haha',
+			playlist_thumbnail = items_arr[0]['url_thumbnail'],
 			playlist_str = '<div class="card-container" ontouchstart="this.classList.toggle(\'flip\');">' +
 					'<div class="card js-card ">' + 
 						'<div class="card-front-side">' + 
@@ -222,7 +222,7 @@ RML.Playlist = new function() {
 					'</div>' + 
 					'<div class="card-info">' + 
 						'<div class="card-info__play-btn"></div>' + 
-						'<div class="card-info__title">' + title + '</div>' + 
+						'<div class="card-info__title">' + playlist_title + '</div>' + 
 						'<div class="card-info__song-count">' + items_count + ' songs </div>' + 
 					'</div>' + 
 				'</div>';
