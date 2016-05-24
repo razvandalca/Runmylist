@@ -124,15 +124,13 @@ public class PlaylistDAO {
         PreparedStatement statement = connection.prepareStatement("SELECT `playlist_id` FROM `playlists` WHERE name = ?");
         statement.setString(1, name);
         ResultSet rs = statement.executeQuery();
-//        if (rs.next()) {
-        System.err.println(rs.getInt(name));
+        if (rs.next()) {
 
         System.err.println(rs.getInt("playlist_id"));
-             rs.getInt("playlist_id");
-            return-1;
-//        }
-//        rs.close();
-//        return -1;
+             return rs.getInt("playlist_id");
+        }
+        rs.close();
+        return -1;
     }
 
     public ArrayList<Integer> getAllPlaylistsForUser(String userID) throws SQLException {
